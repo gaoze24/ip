@@ -21,7 +21,7 @@ public class Tasks {
         }
 
         System.out.println("  " + tasks[index].toString());
-        System.out.println("Now you have " + index + " tasks in the list.");
+        System.out.println("Now you have " + index + " task/s in the list.");
         index++;
     }
 
