@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Chatbot {
-    private Items items;
+    private Tasks tasks;
 
     public Chatbot() {
-        items = new Items();
+        tasks = new Tasks();
     }
 
     public void chat()
@@ -20,21 +20,21 @@ public class Chatbot {
 
         while (!input.equals("bye")) {
             System.out.println(horizontal_line);
-            if (input.equals("list")) {
-                System.out.println(items.toString());
-            } else if (input.split(" ")[0].equals("mark")) {
+            String task = input.split(" ")[0];
+            if (task.equals("list")) {
+                System.out.println(tasks.toString());
+            } else if (task.equals("mark")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
-                items.completeItem(index);
+                tasks.completeTask(index);
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + items.showItem(index));
-            } else if (input.split(" ")[0].equals("unmark")) {
+                System.out.println("  " + tasks.showTask(index));
+            } else if (task.equals("unmark")) {
                 int index = Integer.parseInt(input.split(" ")[1]);
-                items.incompleteItem(index);
+                tasks.incompleteTask(index);
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + items.showItem(index));
+                System.out.println("  " + tasks.showTask(index));
             } else {
-                items.storeItem(input);
-                System.out.println("added: " + input);
+                tasks.storeTask(task, input);
             }
             System.out.println(horizontal_line);
             input = sc.nextLine();

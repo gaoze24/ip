@@ -1,9 +1,9 @@
-public class Item {
+public class Task {
     private int id;
     private boolean completed;
     private String name;
 
-    public Item(int id, String name) {
+    public Task(int id, String name) {
         this.id = id;
         this.completed = false;
         this.name = name;
