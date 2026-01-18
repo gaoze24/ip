@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class Yoyo {
+    private static String[] items = new String[101];
+    private static int index = 1;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -12,7 +15,15 @@ public class Yoyo {
 
         while (!input.equals("bye")) {
             System.out.println("-----------------------------");
-            System.out.println(input);
+            if (input.equals("list")) {
+                for (int i = 1; i < index; i++) {
+                    System.out.println(i + ". " + items[i]);
+                }
+            } else {
+                items[index] = input;
+                index++;
+                System.out.println("added: " + input);
+            }
             System.out.println("-----------------------------");
             input = sc.nextLine();
         }
