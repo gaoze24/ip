@@ -22,6 +22,16 @@ public class Chatbot {
             System.out.println(horizontal_line);
             if (input.equals("list")) {
                 System.out.println(items.toString());
+            } else if (input.split(" ")[0].equals("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                items.completeItem(index);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + items.showItem(index));
+            } else if (input.split(" ")[0].equals("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]);
+                items.incompleteItem(index);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + items.showItem(index));
             } else {
                 items.storeItem(input);
                 System.out.println("added: " + input);
