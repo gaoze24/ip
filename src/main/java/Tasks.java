@@ -1,10 +1,11 @@
 public class Tasks {
     private Task[] tasks = new Task[101];
     private int index;
-
+    private int count;
 
     public Tasks() {
         this.index = 1;
+        this.count = 0;
     }
 
     public void storeTask(String task, String description) {
@@ -35,6 +36,14 @@ public class Tasks {
 
     public String showTask(int index) {
         return tasks[index].toString();
+    }
+
+    public boolean checkExists(int index) {
+        if (index >= count) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
