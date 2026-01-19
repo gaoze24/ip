@@ -4,14 +4,13 @@ import java.util.Set;
 
 public class Chatbot {
     private Tasks tasks;
-    private final Set<String> operations =  Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list");
+    private final Set<String> operations =  Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete");
 
     public Chatbot() {
         tasks = new Tasks();
     }
 
-    public void chat()
-    {
+    public void chat() {
         Scanner sc = new Scanner(System.in);
         String horizontal_line = "-----------------------------";
 
@@ -40,6 +39,12 @@ public class Chatbot {
                     tasks.incompleteTask(index);
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.showTask(index));
+                } else if (task.equals("delete")) {
+                    int index = Integer.parseInt(input.split(" ")[1]);
+                    System.out.println("Nice! I've deleted this task as done:");
+                    System.out.println("  " + tasks.showTask(index));
+                    tasks.deleteTask(index);
+                    System.out.println("Now you have " + tasks.count() + " task/s in the list.");
                 } else {
                     tasks.storeTask(task, input);
                 }
@@ -70,7 +75,7 @@ public class Chatbot {
             String[] s = input.split("/from|/to");
             if (inputs.length == 1) {
                 throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
-            } else if (s.length != 3 || s[0].equals("")) {
+            } else if (s.length != 3 || s[0].isEmpty()) {
                 throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
             }
         } else if (task.equals("deadline")) {
@@ -78,22 +83,36 @@ public class Chatbot {
             if (inputs.length == 1) {
                 throw new YoyoException("Sorry, the description and date of a deadline cannot be empty");
             } else {
-                if (s.length != 2 || s[0].equals("")) {
+                if (s.length != 2 || s[0].isEmpty()) {
                     throw new YoyoException("Sorry, the description and date of the deadline cannot be empty");
                 }
             }
         } else if (task.equals("mark")) {
-            if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
-                throw new YoyoException("Sorry, the task does not exist");
-            } else if (inputs.length == 1) {
+            if (inputs.length != 1 || !isNumeric(inputs[0])) {
                 throw new YoyoException("Sorry, you need to specify which task is to be marked");
+            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
+                throw new YoyoException("Sorry, the task does not exist");
             }
         } else if (task.equals("unmark")) {
-            if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
-                throw new YoyoException("Sorry, the task does not exist");
-            } else if (inputs.length == 1) {
+            if (inputs.length != 1 || !isNumeric(inputs[0])) {
                 throw new YoyoException("Sorry, you need to specify which task is to be unmarked");
+            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
+                throw new YoyoException("Sorry, the task does not exist");
             }
+        } else if (task.equals("delete")) {
+            if (inputs.length != 1 || !isNumeric(inputs[0])) {
+                throw new YoyoException("Sorry, you need to specify which task is to be deleted");
+            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
+                throw new YoyoException("Sorry, the task does not exist");
+            }
+        }
+    }
+    public boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
         }
     }
 }

@@ -1,5 +1,7 @@
+import java.util.ArrayList;
+
 public class Tasks {
-    private Task[] tasks = new Task[101];
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int index;
     private int count;
 
@@ -12,34 +14,42 @@ public class Tasks {
         System.out.println("Got it. I've added this task:");
 
         if (task.equals("todo")) {
-            tasks[index] = new ToDos(index, description.replaceFirst("todo ", ""));
+            tasks.add(new ToDos(index, description.replaceFirst("todo ", "")));
         } else if (task.equals("deadline")) {
             String[] s = description.split("/by");
-            tasks[index] = new Deadlines(index, s[0].replaceFirst("deadline ", ""), s[1]);
+            tasks.add(new Deadlines(index, s[0].replaceFirst("deadline ", ""), s[1]));
         } else if (task.equals("event")) {
             String[] s = description.split("/from|/to");
-            tasks[index] = new Events(index, s[0].replaceFirst("event ", ""), s[1], s[2]);
+            tasks.add(new Events(index, s[0].replaceFirst("event ", ""), s[1], s[2]));
         }
 
-        System.out.println("  " + tasks[index].toString());
-        System.out.println("Now you have " + index + " task/s in the list.");
+        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " task/s in the list.");
         index++;
     }
 
     public void completeTask(int index) {
-        tasks[index].complete();
+        tasks.get(index - 1).complete();
     }
 
     public void incompleteTask(int index) {
-        tasks[index].incomplete();
+        tasks.get(index - 1).incomplete();
     }
 
     public String showTask(int index) {
-        return tasks[index].toString();
+        return tasks.get(index - 1).toString();
+    }
+
+    public void deleteTask(int index) {
+        tasks.remove(index - 1);
+    }
+
+    public int count() {
+        return this.count;
     }
 
     public boolean checkExists(int index) {
-        if (index >= count) {
+        if (index > tasks.size()) {
             return false;
         } else {
             return true;
@@ -49,11 +59,11 @@ public class Tasks {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < index; i++) {
-            if (i == index - 1) {
-                sb.append(i).append(". ").append(tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            if (i == tasks.size() - 1) {
+                sb.append(i + 1).append(". ").append(tasks.get(i).toString());
             } else {
-                sb.append(i).append(". ").append(tasks[i].toString()).append("\n");
+                sb.append(i + 1).append(". ").append(tasks.get(i).toString()).append("\n");
             }
         }
         return sb.toString();
