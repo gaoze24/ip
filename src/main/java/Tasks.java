@@ -49,7 +49,7 @@ public class Tasks {
     }
 
     public boolean checkExists(int index) {
-        if (index > tasks.size()) {
+        if (index > tasks.size() || index <= 0) {
             return false;
         } else {
             return true;
