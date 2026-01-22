@@ -8,6 +8,7 @@ public class Events extends Task{
         this.end = end;
     }
 
+    // Override the toString method to return a customized representation of the task.
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from:" + this.start + "to:" + this.end + ")";

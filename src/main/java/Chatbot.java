@@ -6,10 +6,12 @@ public class Chatbot {
     private Tasks tasks;
     private final Set<String> operations =  Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete");
 
+    // Constructor for Chatbot class, requires no input parameters.
     public Chatbot() {
         tasks = new Tasks();
     }
 
+    // Main method that handles chat logics
     public void chat() {
         Scanner sc = new Scanner(System.in);
         String horizontal_line = "-----------------------------";
@@ -61,6 +63,7 @@ public class Chatbot {
         System.out.println(horizontal_line);
     }
 
+    // Method that checks if the user input meets the expectations, will throw exceptions if errors are found.
     private void inputCheck(String task, String input) throws YoyoException {
         int firstSpaceIndex = input.indexOf(' ');
         if (firstSpaceIndex != -1) {
@@ -107,6 +110,8 @@ public class Chatbot {
             }
         }
     }
+
+    // Boolean method that checks if the string is consisted of numeric values only.
     public boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);

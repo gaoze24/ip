@@ -5,6 +5,7 @@ public class Deadlines extends Task{
         this.deadline = deadline;
     }
 
+    // Override the toString method to return a customized representation of the task.
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by:" + this.deadline + ")";

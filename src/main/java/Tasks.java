@@ -10,6 +10,7 @@ public class Tasks {
         this.count = 0;
     }
 
+    // Method that stores task and description into the task array. It can categorize different type of tasks.
     public void storeTask(String task, String description) {
         System.out.println("Got it. I've added this task:");
 
@@ -28,26 +29,32 @@ public class Tasks {
         index++;
     }
 
+    // Method that marks one task as completed.
     public void completeTask(int index) {
         tasks.get(index - 1).complete();
     }
 
+    // Method that marks one task as incompleted.
     public void incompleteTask(int index) {
         tasks.get(index - 1).incomplete();
     }
 
+    // Method that return a string representation of a task in the array.
     public String showTask(int index) {
         return tasks.get(index - 1).toString();
     }
 
+    // Method that delete a specific task from the array.
     public void deleteTask(int index) {
         tasks.remove(index - 1);
     }
 
+    // Method that returns the number of tasks in the array.
     public int count() {
         return this.count;
     }
 
+    // Method that checks if a specific task exists in the array.
     public boolean checkExists(int index) {
         if (index > tasks.size() || index <= 0) {
             return false;
@@ -56,6 +63,7 @@ public class Tasks {
         }
     }
 
+    // Override toString method that return a string representation of the entire list.
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
