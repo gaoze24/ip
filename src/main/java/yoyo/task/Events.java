@@ -1,6 +1,8 @@
+package yoyo.task;
+
 import java.time.LocalDate;
 
-public class Events extends Task{
+public class Events extends Task {
     private LocalDate start;
     private LocalDate end;
 

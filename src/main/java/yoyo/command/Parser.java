@@ -1,9 +1,14 @@
+package yoyo.command;
+
+import yoyo.exception.YoyoException;
+import yoyo.task.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
 
 /**
- * Parser class is responsible for parsing input and checking input integrity.
+ * yoyo.command.Parser class is responsible for parsing input and checking input integrity.
  */
 public class Parser {
     private final Set<String> operations =
@@ -11,14 +16,14 @@ public class Parser {
 
     /**
      * Parsing the user input into machine friendly format.
-     * Return a task variable to be further executed by Command class.
+     * Return a task variable to be further executed by yoyo.command.Command class.
      *
      * @param input The user input that is to be parsed.
      * @param tasks Current list of tasks.
      * @return A task class that is to be executed
      * @throws YoyoException If the user input is not in the right format.
      */
-    public Task parse(String input, Tasks tasks) throws YoyoException{
+    public Task parse(String input, Tasks tasks) throws YoyoException {
         inputCheck(input, tasks);
 
         String[] elements = input.split(" | /to | /from | /by ");
