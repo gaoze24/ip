@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tasks {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -27,6 +28,21 @@ public class Tasks {
         System.out.println("  " + tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " task/s in the list.");
         index++;
+    }
+
+    /**
+     * Overload storeTask class that accepts a string array.
+     * Stores tasks into the list based on their types.
+     * @param list Array that store information about each task.
+     */
+    public void storeTask(String[] list) {
+        if (list.length == 3) {
+            tasks.add(new ToDos(index, list[1].equals("true"), list[2]));
+        } else if (list.length == 4) {
+            tasks.add(new Deadlines(index, list[1].equals("true"), list[2], list[3]));
+        } else if (list.length == 5) {
+            tasks.add(new Events(index, list[1].equals("true"), list[2], list[3], list[4]));
+        }
     }
 
     // Method that marks one task as completed.
@@ -61,6 +77,24 @@ public class Tasks {
         } else {
             return true;
         }
+    }
+
+    /**
+     * Output All the tasks in an easy to manipulate pattern in String
+     *
+     * @return all the information about tasks in a string
+     */
+    public String fileOutput() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (i == tasks.size() - 1) {
+                sb.append(task.taskOutput());
+            } else {
+                sb.append(task.taskOutput()).append("\n");
+            }
+        }
+        return sb.toString();
     }
 
     // Override toString method that return a string representation of the entire list.

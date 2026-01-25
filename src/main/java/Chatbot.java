@@ -1,20 +1,24 @@
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 public class Chatbot {
     private Tasks tasks;
-    private final Set<String> operations =  Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete");
+    private final Set<String> operations =
+            Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete");
+    private TaskFile taskfile;
 
     // Constructor for Chatbot class, requires no input parameters.
     public Chatbot() {
         tasks = new Tasks();
+        taskfile = new TaskFile();
     }
 
     // Main method that handles chat logics
     public void chat() {
         Scanner sc = new Scanner(System.in);
         String horizontal_line = "-----------------------------";
+
+        readTask();
 
         System.out.println(horizontal_line);
         System.out.println("Hello! I'm Yoyo.");
@@ -50,6 +54,7 @@ public class Chatbot {
                 } else {
                     tasks.storeTask(task, input);
                 }
+                saveTask();
             } catch (YoyoException e) {
                 System.out.println(e.getMessage());
             } finally {
@@ -118,6 +123,23 @@ public class Chatbot {
             return true;
         } catch(NumberFormatException e){
             return false;
+        }
+    }
+
+    /**
+     * Use the output from tasks class to write to the task file
+     */
+    private void saveTask() {
+        this.taskfile.WriteList(tasks.fileOutput());
+    }
+
+    /**
+     * Read the string list from the task file and store the task into tasks class.
+     */
+    private void readTask() {
+        List<String> list = this.taskfile.ReadList();
+        for (String s : list) {
+            this.tasks.storeTask(s.split(" \\| "));
         }
     }
 }

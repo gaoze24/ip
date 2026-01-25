@@ -9,6 +9,12 @@ public class Task {
         this.description = description;
     }
 
+    public Task(int id, boolean completed, String description) {
+        this.id = id;
+        this.completed = completed;
+        this.description = description;
+    }
+
     // Method that return a boolean value to indicate if the task is completed.
     public boolean isCompleted() {
         return this.completed;
@@ -28,6 +34,12 @@ public class Task {
     public void incomplete() {
         this.completed = false;
     }
+
+    public String taskOutput() {
+        return this.completed + " | " +  this.description;
+    }
+
+
 
     // Override the toString method to return a customized representation of the task.
     @Override
