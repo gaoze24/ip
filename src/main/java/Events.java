@@ -1,17 +1,43 @@
+import java.time.LocalDate;
+
 public class Events extends Task{
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
     public Events(int id, String name, String start, String end) {
         super(id, name);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     public Events(int id, boolean completed, String name, String start, String end) {
         super(id, completed, name);
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
+    }
+
+    /**
+     * Get the type of the task
+     * @return The type of the task in String
+     */
+    public String getType() {
+        return "Event";
+    }
+
+    /**
+     * Check if the task is active on this date.
+     * @param date The date to be checked.
+     * @return True is the task is active on this date, False otherwise.
+     */
+    @Override
+    public boolean checkDate(LocalDate date) {
+        if (this.start.isEqual(date) || this.end.equals(date)) {
+            return true;
+        } else if (this.start.isBefore(date) && this.end.isAfter(date)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -26,6 +52,6 @@ public class Events extends Task{
     // Override the toString method to return a customized representation of the task.
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + this.start + "to:" + this.end + ")";
+        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }
 }

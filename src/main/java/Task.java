@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
     private int id;
     private boolean completed;
@@ -37,6 +39,23 @@ public class Task {
 
     public String taskOutput() {
         return this.completed + " | " +  this.description;
+    }
+
+    /**
+     * Get the type of the task
+     * @return The type of the task in String
+     */
+    public String getType() {
+        return "Task";
+    }
+
+    /**
+     * Check if the task is active on this date.
+     * @param date The date to be checked.
+     * @return True is the task is active on this date, False otherwise.
+     */
+    public boolean checkDate(LocalDate date) {
+        return false;
     }
 
     // Override the toString method to return a customized representation of the task.

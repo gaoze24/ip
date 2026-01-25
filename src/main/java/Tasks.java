@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class Tasks {
         if (task.equals("todo")) {
             tasks.add(new ToDos(index, description.replaceFirst("todo ", "")));
         } else if (task.equals("deadline")) {
-            String[] s = description.split("/by");
+            String[] s = description.split(" /by ");
             tasks.add(new Deadlines(index, s[0].replaceFirst("deadline ", ""), s[1]));
         } else if (task.equals("event")) {
-            String[] s = description.split("/from|/to");
+            String[] s = description.split(" /from | /to ");
             tasks.add(new Events(index, s[0].replaceFirst("event ", ""), s[1], s[2]));
         }
 
@@ -92,6 +93,26 @@ public class Tasks {
                 sb.append(task.taskOutput());
             } else {
                 sb.append(task.taskOutput()).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Check if any tasks are active on the input date.
+     * Return an organised string of all the applicable tasks.
+     *
+     * @param date The date to be checked.
+     * @return The String representation of the list of tasks.
+     */
+    public String checkDate(LocalDate date) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).checkDate(date)) {
+                sb.append(tasks.get(i).toString());
+                if (i != tasks.size() - 1) {
+                    sb.append("\n");
+                }
             }
         }
         return sb.toString();
