@@ -1,18 +1,24 @@
 import java.time.LocalDate;
 
 public class Task {
-    private int id;
     private boolean completed;
     private String description;
+    private String type;
 
-    public Task(int id, String description) {
-        this.id = id;
+    public Task() {}
+
+    public Task(String type) {
         this.completed = false;
-        this.description = description;
+        this.type = type;
     }
 
-    public Task(int id, boolean completed, String description) {
-        this.id = id;
+    public Task(String description, String type) {
+        this.completed = false;
+        this.description = description;
+        this.type = type;
+    }
+
+    public Task(boolean completed, String description) {
         this.completed = completed;
         this.description = description;
     }
@@ -23,7 +29,7 @@ public class Task {
     }
 
     // Method that returns the description of the task.
-    public String getName() {
+    public String getDescription() {
         return this.description;
     }
 
@@ -46,7 +52,7 @@ public class Task {
      * @return The type of the task in String
      */
     public String getType() {
-        return "Task";
+        return this.type;
     }
 
     /**

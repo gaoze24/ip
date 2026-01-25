@@ -5,14 +5,16 @@ import java.util.*;
 
 public class Chatbot {
     private Tasks tasks;
-    private final Set<String> operations =
-            Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check");
     private TaskFile taskfile;
+    private Parser parser;
+    private Command command;
 
     // Constructor for Chatbot class, requires no input parameters.
     public Chatbot() {
-        tasks = new Tasks();
-        taskfile = new TaskFile();
+        this.tasks = new Tasks();
+        this.taskfile = new TaskFile();
+        this.parser = new Parser();
+        this.command = new Command();
     }
 
     // Main method that handles chat logics
@@ -30,35 +32,10 @@ public class Chatbot {
 
         while (!input.equals("bye")) {
             System.out.println(horizontal_line);
-            String task = input.split(" ")[0];
 
             try {
-                inputCheck(task, input);
-
-                if (task.equals("list")) {
-                    System.out.println(tasks.toString());
-                } else if (task.equals("mark")) {
-                    int index = Integer.parseInt(input.split(" ")[1]);
-                    tasks.completeTask(index);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks.showTask(index));
-                } else if (task.equals("unmark")) {
-                    int index = Integer.parseInt(input.split(" ")[1]);
-                    tasks.incompleteTask(index);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks.showTask(index));
-                } else if (task.equals("delete")) {
-                    int index = Integer.parseInt(input.split(" ")[1]);
-                    System.out.println("Nice! I've deleted this task as done:");
-                    System.out.println("  " + tasks.showTask(index));
-                    tasks.deleteTask(index);
-                    System.out.println("Now you have " + tasks.count() + " task/s in the list.");
-                } else if (task.equals("check")) {
-                    System.out.println("Below are the tasks that occurs on this day");
-                    System.out.println(tasks.checkDate(LocalDate.parse(input.split(" ")[1])));
-                } else {
-                    tasks.storeTask(task, input);
-                }
+                Task task = this.parser.parse(input, tasks);
+                this.command.execute(tasks, task);
                 saveTask();
             } catch (YoyoException e) {
                 System.out.println(e.getMessage());
@@ -71,84 +48,6 @@ public class Chatbot {
         System.out.println(horizontal_line);
         System.out.println("Bye. Hope to see you again!");
         System.out.println(horizontal_line);
-    }
-
-    // Method that checks if the user input meets the expectations, will throw exceptions if errors are found.
-    private void inputCheck(String task, String input) throws YoyoException {
-        int firstSpaceIndex = input.indexOf(' ');
-        if (firstSpaceIndex != -1) {
-            input = input.substring(firstSpaceIndex + 1);
-        }
-        String[] inputs = input.split(" ");
-        if (!operations.contains(task)) {
-            throw new YoyoException("Sorry, I do not recognise this.");
-        } else if (task.equals("todo") && inputs.length == 0) {
-            throw new YoyoException("Sorry, the description of a todo cannot be empty");
-        } else if (task.equals("event")) {
-            String[] s = input.split(" /from | /to ");
-            if (inputs.length == 1) {
-                throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
-            } else if (s.length != 3 || s[0].isEmpty()) {
-                throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
-            }
-            try {
-                LocalDate start = LocalDate.parse(s[1]);
-                LocalDate end = LocalDate.parse(s[2]);
-            } catch (DateTimeParseException e) {
-                throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
-            }
-        } else if (task.equals("deadline")) {
-            String[] s = input.split(" /by ");
-            if (inputs.length == 1) {
-                throw new YoyoException("Sorry, the description and date of a deadline cannot be empty");
-            } else {
-                if (s.length != 2 || s[0].isEmpty()) {
-                    throw new YoyoException("Sorry, the description and date of the deadline cannot be empty");
-                }
-            }
-            try {
-                LocalDate deadline = LocalDate.parse(s[1]);
-            } catch (DateTimeParseException e) {
-                throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
-            }
-        } else if (task.equals("mark")) {
-            if (inputs.length != 1 || !isNumeric(inputs[0])) {
-                throw new YoyoException("Sorry, you need to specify which task is to be marked");
-            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
-                throw new YoyoException("Sorry, the task does not exist");
-            }
-        } else if (task.equals("unmark")) {
-            if (inputs.length != 1 || !isNumeric(inputs[0])) {
-                throw new YoyoException("Sorry, you need to specify which task is to be unmarked");
-            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
-                throw new YoyoException("Sorry, the task does not exist");
-            }
-        } else if (task.equals("delete")) {
-            if (inputs.length != 1 || !isNumeric(inputs[0])) {
-                throw new YoyoException("Sorry, you need to specify which task is to be deleted");
-            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
-                throw new YoyoException("Sorry, the task does not exist");
-            }
-        } else if (task.equals("check")) {
-            if (inputs.length != 1) {
-                throw new YoyoException("Sorry, you need to specify which date is to be check");
-            }
-            try {
-                LocalDate checkDate = LocalDate.parse(inputs[0]);
-            } catch (DateTimeParseException e) {
-                throw new YoyoException("Sorry, you have not input a valid date.  Please follow yyyy-mm-dd");
-            }
-        }
-    }
-
-    // Boolean method that checks if the string is consisted of numeric values only.
-    public boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
     }
 
     /**

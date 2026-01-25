@@ -4,11 +4,9 @@ import java.util.List;
 
 public class Tasks {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private int index;
     private int count;
 
     public Tasks() {
-        this.index = 1;
         this.count = 0;
     }
 
@@ -17,18 +15,29 @@ public class Tasks {
         System.out.println("Got it. I've added this task:");
 
         if (task.equals("todo")) {
-            tasks.add(new ToDos(index, description.replaceFirst("todo ", "")));
+            tasks.add(new ToDos(description.replaceFirst("todo ", "")));
         } else if (task.equals("deadline")) {
             String[] s = description.split(" /by ");
-            tasks.add(new Deadlines(index, s[0].replaceFirst("deadline ", ""), s[1]));
+            tasks.add(new Deadlines(s[0].replaceFirst("deadline ", ""), s[1]));
         } else if (task.equals("event")) {
             String[] s = description.split(" /from | /to ");
-            tasks.add(new Events(index, s[0].replaceFirst("event ", ""), s[1], s[2]));
+            tasks.add(new Events(s[0].replaceFirst("event ", ""), s[1], s[2]));
         }
 
         System.out.println("  " + tasks.get(tasks.size() - 1).toString());
         System.out.println("Now you have " + tasks.size() + " task/s in the list.");
-        index++;
+    }
+
+    /**
+     * Store a Task variable into tasks list.
+     *
+     * @param task The task to be stored
+     */
+    public void storeTask(Task task) {
+        System.out.println("Got it. I've added this task:");
+        tasks.add(task);
+        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
+        System.out.println("Now you have " + tasks.size() + " task/s in the list.");
     }
 
     /**
@@ -38,11 +47,11 @@ public class Tasks {
      */
     public void storeTask(String[] list) {
         if (list.length == 3) {
-            tasks.add(new ToDos(index, list[1].equals("true"), list[2]));
+            tasks.add(new ToDos(list[0].equals("true"), list[1]));
         } else if (list.length == 4) {
-            tasks.add(new Deadlines(index, list[1].equals("true"), list[2], list[3]));
+            tasks.add(new Deadlines(list[0].equals("true"), list[1], list[2]));
         } else if (list.length == 5) {
-            tasks.add(new Events(index, list[1].equals("true"), list[2], list[3], list[4]));
+            tasks.add(new Events(list[0].equals("true"), list[1], list[2], list[3]));
         }
     }
 

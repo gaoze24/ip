@@ -4,13 +4,13 @@ import java.time.format.DateTimeParseException;
 public class Deadlines extends Task{
     private LocalDate deadline;
 
-    public Deadlines(int id, String name, String deadline) {
-        super(id, name);
+    public Deadlines(String name, String deadline) {
+        super(name);
         this.deadline = LocalDate.parse(deadline);
     }
 
-    public Deadlines(int id, boolean completed, String description, String deadline) {
-        super(id, completed, description);
+    public Deadlines(boolean completed, String description, String deadline) {
+        super(completed, description);
         this.deadline = LocalDate.parse(deadline);
     }
 
