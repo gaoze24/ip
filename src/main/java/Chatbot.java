@@ -1,10 +1,12 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Chatbot {
     private Tasks tasks;
     private final Set<String> operations =
-            Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete");
+            Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check");
     private TaskFile taskfile;
 
     // Constructor for Chatbot class, requires no input parameters.
@@ -51,6 +53,9 @@ public class Chatbot {
                     System.out.println("  " + tasks.showTask(index));
                     tasks.deleteTask(index);
                     System.out.println("Now you have " + tasks.count() + " task/s in the list.");
+                } else if (task.equals("check")) {
+                    System.out.println("Below are the tasks that occurs on this day");
+                    System.out.println(tasks.checkDate(LocalDate.parse(input.split(" ")[1])));
                 } else {
                     tasks.storeTask(task, input);
                 }
@@ -80,20 +85,31 @@ public class Chatbot {
         } else if (task.equals("todo") && inputs.length == 0) {
             throw new YoyoException("Sorry, the description of a todo cannot be empty");
         } else if (task.equals("event")) {
-            String[] s = input.split("/from|/to");
+            String[] s = input.split(" /from | /to ");
             if (inputs.length == 1) {
                 throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
             } else if (s.length != 3 || s[0].isEmpty()) {
                 throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
             }
+            try {
+                LocalDate start = LocalDate.parse(s[1]);
+                LocalDate end = LocalDate.parse(s[2]);
+            } catch (DateTimeParseException e) {
+                throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
+            }
         } else if (task.equals("deadline")) {
-            String[] s = input.split("/by");
+            String[] s = input.split(" /by ");
             if (inputs.length == 1) {
                 throw new YoyoException("Sorry, the description and date of a deadline cannot be empty");
             } else {
                 if (s.length != 2 || s[0].isEmpty()) {
                     throw new YoyoException("Sorry, the description and date of the deadline cannot be empty");
                 }
+            }
+            try {
+                LocalDate deadline = LocalDate.parse(s[1]);
+            } catch (DateTimeParseException e) {
+                throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
             }
         } else if (task.equals("mark")) {
             if (inputs.length != 1 || !isNumeric(inputs[0])) {
@@ -112,6 +128,15 @@ public class Chatbot {
                 throw new YoyoException("Sorry, you need to specify which task is to be deleted");
             } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
                 throw new YoyoException("Sorry, the task does not exist");
+            }
+        } else if (task.equals("check")) {
+            if (inputs.length != 1) {
+                throw new YoyoException("Sorry, you need to specify which date is to be check");
+            }
+            try {
+                LocalDate checkDate = LocalDate.parse(inputs[0]);
+            } catch (DateTimeParseException e) {
+                throw new YoyoException("Sorry, you have not input a valid date.  Please follow yyyy-mm-dd");
             }
         }
     }
