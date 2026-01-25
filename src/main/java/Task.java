@@ -39,8 +39,6 @@ public class Task {
         return this.completed + " | " +  this.description;
     }
 
-
-
     // Override the toString method to return a customized representation of the task.
     @Override
     public String toString() {
