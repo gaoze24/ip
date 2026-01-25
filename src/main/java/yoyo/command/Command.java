@@ -1,7 +1,12 @@
+package yoyo.command;
+
+import yoyo.task.Task;
+import yoyo.task.Tasks;
+
 import java.time.LocalDate;
 
 /**
- * Command class is responsible for executing all types of command.
+ * yoyo.command.Command class is responsible for executing all types of command.
  */
 public class Command {
     /**

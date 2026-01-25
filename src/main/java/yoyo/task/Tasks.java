@@ -1,6 +1,7 @@
+package yoyo.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Tasks {
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Tasks {
     }
 
     /**
-     * Store a Task variable into tasks list.
+     * Store a yoyo.task.Task variable into tasks list.
      *
      * @param task The task to be stored
      */

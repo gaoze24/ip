@@ -1,17 +1,15 @@
+package yoyo.task;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
-public class Deadlines extends Task{
-    private LocalDate deadline;
-
-    public Deadlines(String name, String deadline) {
+public class ToDos extends Task {
+    public ToDos(String name) {
         super(name);
-        this.deadline = LocalDate.parse(deadline);
+
     }
 
-    public Deadlines(boolean completed, String description, String deadline) {
+    public ToDos(boolean completed, String description) {
         super(completed, description);
-        this.deadline = LocalDate.parse(deadline);
     }
 
     /**
@@ -20,7 +18,7 @@ public class Deadlines extends Task{
      */
     @Override
     public String getType() {
-        return "Deadline";
+        return "Todo";
     }
 
     /**
@@ -30,11 +28,7 @@ public class Deadlines extends Task{
      */
     @Override
     public boolean checkDate(LocalDate date) {
-        if (this.deadline.isEqual(date)) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -43,13 +37,12 @@ public class Deadlines extends Task{
      */
     @Override
     public String taskOutput() {
-        return "D | " + super.taskOutput() + " | " + this.deadline;
+        return "T | " + super.taskOutput();
     }
 
     // Override the toString method to return a customized representation of the task.
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[T]" + super.toString();
     }
 }
-

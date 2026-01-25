@@ -1,4 +1,4 @@
-# Yoyo User Guide
+# yoyo.ui.Yoyo User Guide
 
 // Update the title above to match the actual product name
 

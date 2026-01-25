@@ -1,4 +1,5 @@
-import java.io.File;
+package yoyo.task;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -6,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Handles Task Files reading and writing logics.
+ * Handles yoyo.task.Task Files reading and writing logics.
  */
 public class TaskFile {
     private Path path = Path.of("./data/yoyo.txt");
 
     /**
-     * Initialise the TaskFile class, check if the task file exists.
+     * Initialise the yoyo.task.TaskFile class, check if the task file exists.
      * Create the file if it does not exist.
      * @throws IOException If the task file cannot be created.
      */

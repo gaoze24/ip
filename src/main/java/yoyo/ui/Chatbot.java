@@ -1,7 +1,13 @@
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.*;
+package yoyo.ui;
+
+import yoyo.command.Parser;
+import yoyo.exception.YoyoException;
+import yoyo.command.Command;
+import yoyo.task.Task;
+import yoyo.task.TaskFile;
+import yoyo.task.Tasks;
+import java.util.List;
+import java.util.Scanner;
 
 public class Chatbot {
     private Tasks tasks;
@@ -9,7 +15,7 @@ public class Chatbot {
     private Parser parser;
     private Command command;
 
-    // Constructor for Chatbot class, requires no input parameters.
+    // Constructor for yoyo.ui.Chatbot class, requires no input parameters.
     public Chatbot() {
         this.tasks = new Tasks();
         this.taskfile = new TaskFile();
@@ -25,7 +31,7 @@ public class Chatbot {
         readTask();
 
         System.out.println(horizontal_line);
-        System.out.println("Hello! I'm Yoyo.");
+        System.out.println("Hello! I'm yoyo.ui.Yoyo.");
         System.out.println("What can I do for you?");
         System.out.println(horizontal_line);
         String input = sc.nextLine();
