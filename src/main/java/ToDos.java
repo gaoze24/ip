@@ -1,13 +1,13 @@
 import java.time.LocalDate;
 
 public class ToDos extends Task{
-    public ToDos(int id, String name) {
-        super(id, name);
+    public ToDos(String name) {
+        super(name);
 
     }
 
-    public ToDos(int id, boolean completed, String description) {
-        super(id, completed, description);
+    public ToDos(boolean completed, String description) {
+        super(completed, description);
     }
 
     /**

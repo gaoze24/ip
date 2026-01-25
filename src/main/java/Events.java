@@ -4,14 +4,14 @@ public class Events extends Task{
     private LocalDate start;
     private LocalDate end;
 
-    public Events(int id, String name, String start, String end) {
-        super(id, name);
+    public Events(String name, String start, String end) {
+        super(name);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
 
-    public Events(int id, boolean completed, String name, String start, String end) {
-        super(id, completed, name);
+    public Events(boolean completed, String name, String start, String end) {
+        super(completed, name);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
