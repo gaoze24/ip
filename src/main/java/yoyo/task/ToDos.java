@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class ToDos extends Task {
     public ToDos(String name) {
-        super(name);
+        super(name, "todo");
 
     }
 

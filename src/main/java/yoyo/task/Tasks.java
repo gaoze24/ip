@@ -26,7 +26,7 @@ public class Tasks {
     /**
      * Overload storeTask class that accepts a string array.
      * Stores tasks into the list based on their types.
-     * @param list Array that store information about each task.
+     * @param list Array that stores information about each task.
      */
     public void storeTask(String[] list) {
         if (list.length == 3) {
