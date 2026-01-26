@@ -6,7 +6,7 @@ public class Deadlines extends Task {
     private LocalDate deadline;
 
     public Deadlines(String name, String deadline) {
-        super(name);
+        super(name, "deadline");
         this.deadline = LocalDate.parse(deadline);
     }
 

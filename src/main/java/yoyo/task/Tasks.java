@@ -11,24 +11,6 @@ public class Tasks {
         this.count = 0;
     }
 
-    // Method that stores task and description into the task array. It can categorize different type of tasks.
-    public void storeTask(String task, String description) {
-        System.out.println("Got it. I've added this task:");
-
-        if (task.equals("todo")) {
-            tasks.add(new ToDos(description.replaceFirst("todo ", "")));
-        } else if (task.equals("deadline")) {
-            String[] s = description.split(" /by ");
-            tasks.add(new Deadlines(s[0].replaceFirst("deadline ", ""), s[1]));
-        } else if (task.equals("event")) {
-            String[] s = description.split(" /from | /to ");
-            tasks.add(new Events(s[0].replaceFirst("event ", ""), s[1], s[2]));
-        }
-
-        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
-        System.out.println("Now you have " + tasks.size() + " task/s in the list.");
-    }
-
     /**
      * Store a yoyo.task.Task variable into tasks list.
      *
@@ -44,7 +26,7 @@ public class Tasks {
     /**
      * Overload storeTask class that accepts a string array.
      * Stores tasks into the list based on their types.
-     * @param list Array that store information about each task.
+     * @param list Array that stores information about each task.
      */
     public void storeTask(String[] list) {
         if (list.length == 3) {

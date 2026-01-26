@@ -7,7 +7,7 @@ public class Events extends Task {
     private LocalDate end;
 
     public Events(String name, String start, String end) {
-        super(name);
+        super(name, "event");
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }

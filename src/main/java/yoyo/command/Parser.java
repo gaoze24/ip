@@ -26,19 +26,20 @@ public class Parser {
     public Task parse(String input, Tasks tasks) throws YoyoException {
         inputCheck(input, tasks);
 
-        String[] elements = input.split(" | /to | /from | /by ");
-        if (elements[0].equals("list")) {
+        String[] elements = input.split(" /to | /from | /by ");
+        String[] firstPart = elements[0].split(" ", 2);
+        if (firstPart[0].equals("list")) {
             return new Task("list");
-        } else if (elements.length == 2) {
-            if (elements[0].equals("todo")) {
-                return new ToDos(elements[1]);
+        } else if (elements.length == 1) {
+            if (firstPart[0].equals("todo")) {
+                return new ToDos(firstPart[1]);
             } else {
-                return new Task(elements[1], elements[0]);
+                return new Task(firstPart[1], firstPart[0]);
             }
+        } else if (elements.length == 2) {
+            return new Deadlines(firstPart[1], elements[1]);
         } else if (elements.length == 3) {
-            return new Deadlines(elements[1], elements[2]);
-        } else if (elements.length == 4) {
-            return new Events(elements[1], elements[2], elements[3]);
+            return new Events(firstPart[1], elements[1], elements[2]);
         }
 
         return new Task();
