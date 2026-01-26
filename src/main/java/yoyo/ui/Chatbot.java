@@ -31,7 +31,7 @@ public class Chatbot {
         readTask();
 
         System.out.println(horizontal_line);
-        System.out.println("Hello! I'm yoyo.ui.Yoyo.");
+        System.out.println("Hello! I'm Yoyo.");
         System.out.println("What can I do for you?");
         System.out.println(horizontal_line);
         String input = sc.nextLine();
