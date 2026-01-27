@@ -38,6 +38,9 @@ public class Command {
         } else if (type.equals("check")) {
             LocalDate date = LocalDate.parse(task.getDescription());
             tasks.checkDate(date);
+        } else if (type.equals("find")) {
+            System.out.println("Here are the matching task/s in your list:");
+            System.out.println(tasks.checkWord(task.getDescription()));
         } else {
             tasks.storeTask(task);
         }

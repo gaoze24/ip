@@ -73,6 +73,27 @@ public class Tasks {
     }
 
     /**
+     * Check if any tasks contain the input word.
+     * Return an organised string of all the applicable tasks.
+     * @param word The word to be checked.
+     * @return The String representation of the list of tasks.
+     */
+    public String checkWord(String word) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getDescription().contains(word)) {
+                sb.append(i + 1).append(". ").append(tasks.get(i).toString());
+                if (i != tasks.size() - 1) {
+                    sb.append("\n");
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+    /**
      * Output All the tasks in an easy to manipulate pattern in String
      *
      * @return all the information about tasks in a string
