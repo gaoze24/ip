@@ -70,6 +70,10 @@ public class Parser {
 
         String[] inputs = input.split(" ");
 
+        if (inputs.length == 1 && inputs[0].isEmpty()) {
+            inputs = new String[0];
+        }
+
         if (!OPERATIONS.contains(task)) {
             throw new YoyoException("Sorry, I do not recognise this.");
         } else if (task.equals("todo") && inputs.length == 0) {
@@ -127,6 +131,10 @@ public class Parser {
                 LocalDate checkDate = LocalDate.parse(inputs[0]);
             } catch (DateTimeParseException e) {
                 throw new YoyoException("Sorry, you have not input a valid date.  Please follow yyyy-mm-dd");
+            }
+        } else if (task.equals("find")) {
+            if (inputs.length == 0) {
+                throw new YoyoException("Sorry, you need to specify what you want to find");
             }
         }
     }
