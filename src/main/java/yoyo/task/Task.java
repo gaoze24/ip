@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * Has attributes completed, description, and type.
  */
 public class Task {
-    private boolean completed;
+    private boolean isCompleted;
     private String description;
     private String type;
 
@@ -21,7 +21,7 @@ public class Task {
      * @param type type of the task
      */
     public Task(String type) {
-        this.completed = false;
+        this.isCompleted = false;
         this.type = type;
     }
 
@@ -31,7 +31,7 @@ public class Task {
      * @param type type of the task
      */
     public Task(String description, String type) {
-        this.completed = false;
+        this.isCompleted = false;
         this.description = description;
         this.type = type;
     }
@@ -42,7 +42,7 @@ public class Task {
      * @param description description of the task
      */
     public Task(boolean completed, String description) {
-        this.completed = completed;
+        this.isCompleted = completed;
         this.description = description;
     }
 
@@ -51,7 +51,7 @@ public class Task {
      * @return True if the task is completed, False otherwise.
      */
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**
@@ -66,14 +66,14 @@ public class Task {
      * Set the task as complete.
      */
     public void complete() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Set the task as incomplete.
      */
     public void incomplete() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -81,7 +81,7 @@ public class Task {
      * @return A customized representation of the task in String format.
      */
     public String taskOutput() {
-        return this.completed + " | " +  this.description;
+        return this.isCompleted + " | " +  this.description;
     }
 
     /**
@@ -107,7 +107,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = this.completed ? "X" : " ";
+        String status = this.isCompleted ? "X" : " ";
         return "[" + status + "] " + this.description;
     }
 }

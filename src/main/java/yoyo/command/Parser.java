@@ -1,7 +1,11 @@
 package yoyo.command;
 
 import yoyo.exception.YoyoException;
-import yoyo.task.*;
+import yoyo.task.Deadlines;
+import yoyo.task.Events;
+import yoyo.task.Task;
+import yoyo.task.Tasks;
+import yoyo.task.ToDos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -11,7 +15,7 @@ import java.util.Set;
  * yoyo.command.Parser class is responsible for parsing input and checking input integrity.
  */
 public class Parser {
-    private final Set<String> operations =
+    private final Set<String> OPERATIONS =
             Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check");
 
     /**
@@ -24,10 +28,11 @@ public class Parser {
      * @throws YoyoException If the user input is not in the right format.
      */
     public Task parse(String input, Tasks tasks) throws YoyoException {
-        inputCheck(input, tasks);
+        checkInput(input, tasks);
 
         String[] elements = input.split(" /to | /from | /by ");
         String[] firstPart = elements[0].split(" ", 2);
+
         if (firstPart[0].equals("list")) {
             return new Task("list");
         } else if (elements.length == 1) {
@@ -51,9 +56,10 @@ public class Parser {
      * @param tasks Current list of tasks.
      * @throws YoyoException If the user input is not in the right format.
      */
-    private void inputCheck(String input, Tasks tasks) throws YoyoException {
+    private void checkInput(String input, Tasks tasks) throws YoyoException {
         String task = input.split(" ")[0];
         int firstSpaceIndex = input.indexOf(' ');
+
         if (firstSpaceIndex != -1) {
             input = input.substring(firstSpaceIndex + 1);
         } else {
@@ -61,9 +67,10 @@ public class Parser {
                 throw new YoyoException("Missing description");
             }
         }
+
         String[] inputs = input.split(" ");
 
-        if (!operations.contains(task)) {
+        if (!OPERATIONS.contains(task)) {
             throw new YoyoException("Sorry, I do not recognise this.");
         } else if (task.equals("todo") && inputs.length == 0) {
             throw new YoyoException("Sorry, the description of a todo cannot be empty");

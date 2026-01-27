@@ -1,11 +1,12 @@
 package yoyo.ui;
 
 import yoyo.command.Parser;
-import yoyo.exception.YoyoException;
 import yoyo.command.Command;
+import yoyo.exception.YoyoException;
 import yoyo.task.Task;
 import yoyo.task.TaskFile;
 import yoyo.task.Tasks;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,19 +14,15 @@ import java.util.Scanner;
  * Handles UI and chat logics.
  */
 public class Chatbot {
-    private Tasks tasks;
-    private TaskFile taskfile;
-    private Parser parser;
-    private Command command;
+    private Tasks tasks = new Tasks();
+    private TaskFile taskfile = new TaskFile();
+    private Parser parser = new Parser();
+    private Command command = new Command();
 
     /**
      * Initialise the Chatbot class.
      */
     public Chatbot() {
-        this.tasks = new Tasks();
-        this.taskfile = new TaskFile();
-        this.parser = new Parser();
-        this.command = new Command();
     }
 
     /**
