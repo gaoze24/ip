@@ -3,13 +3,18 @@ package yoyo.task;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * A container for storing Task objects.
+ * Handles logics about Tasks.
+ * Use an internal ArrayList to store Tasks.
+ */
 public class Tasks {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private int count;
 
-    public Tasks() {
-        this.count = 0;
-    }
+    /**
+     * Initialise the Tasks class.
+     */
+    public Tasks() {}
 
     /**
      * Store a yoyo.task.Task variable into tasks list.
@@ -38,32 +43,52 @@ public class Tasks {
         }
     }
 
-    // Method that marks one task as completed.
+    /**
+     * Mark one task as completed.
+     * @param index The index of the task to be marked as completed.
+     */
     public void completeTask(int index) {
         tasks.get(index - 1).complete();
     }
 
-    // Method that marks one task as incompleted.
+    /**
+     * Mark one task as incomplete.
+     * @param index The index of the task to be marked as incomplete.
+     */
     public void incompleteTask(int index) {
         tasks.get(index - 1).incomplete();
     }
 
-    // Method that return a string representation of a task in the array.
+    /**
+     * Show representation of a specific task.
+     * @param index The index of the task to be shown.
+     * @return A customized representation of the task.
+     */
     public String showTask(int index) {
         return tasks.get(index - 1).toString();
     }
 
-    // Method that delete a specific task from the array.
+    /**
+     * Delete a specific task from the list.
+     * @param index The index of the task to be deleted.
+     */
     public void deleteTask(int index) {
         tasks.remove(index - 1);
     }
 
-    // Method that returns the number of tasks in the array.
+    /**
+     * Count the number of tasks in the list.
+     * @return The number of tasks in the list.
+     */
     public int count() {
-        return this.count;
+        return this.tasks.size();
     }
 
-    // Method that checks if a specific task exists in the array.
+    /**
+     * Check if the index is valid.
+     * @param index The index to be checked.
+     * @return True if the index is valid, False otherwise.
+     */
     public boolean checkExists(int index) {
         if (index > tasks.size() || index <= 0) {
             return false;
@@ -73,7 +98,7 @@ public class Tasks {
     }
 
     /**
-     * Output All the tasks in an easy to manipulate pattern in String
+     * Output All the tasks in an easy-to-manipulate pattern in String
      *
      * @return all the information about tasks in a string
      */
@@ -110,7 +135,10 @@ public class Tasks {
         return sb.toString();
     }
 
-    // Override toString method that return a string representation of the entire list.
+    /**
+     * Override toString to return a customized representation of the task.
+     * @return A customized representation of the task.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

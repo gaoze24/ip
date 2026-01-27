@@ -15,7 +15,7 @@ public class Parser {
             Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check");
 
     /**
-     * Parsing the user input into machine friendly format.
+     * Parsing the user input into machine-friendly format.
      * Return a task variable to be further executed by yoyo.command.Command class.
      *
      * @param input The user input that is to be parsed.
@@ -45,7 +45,12 @@ public class Parser {
         return new Task();
     }
 
-    // Method that checks if the user input meets the expectations, will throw exceptions if errors are found.
+    /**
+     * Check if the user input is in the right format.
+     * @param input The user input to be checked.
+     * @param tasks Current list of tasks.
+     * @throws YoyoException If the user input is not in the right format.
+     */
     private void inputCheck(String input, Tasks tasks) throws YoyoException {
         String task = input.split(" ")[0];
         int firstSpaceIndex = input.indexOf(' ');
@@ -119,7 +124,11 @@ public class Parser {
         }
     }
 
-    // Boolean method that checks if the string is consisted of numeric values only.
+    /**
+     * Check if a string is numeric.
+     * @param str The string to be checked.
+     * @return True if the string is numeric, False otherwise.
+     */
     public boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
