@@ -2,12 +2,24 @@ package yoyo.task;
 
 import java.time.LocalDate;
 
+/**
+ * A subclass of the Task class, with no special features.
+ */
 public class ToDos extends Task {
-    public ToDos(String name) {
-        super(name, "todo");
+    /**
+     * Initialise a ToDos task.
+     * @param description The description of the task.
+     */
+    public ToDos(String description) {
+        super(description, "todo");
 
     }
 
+    /**
+     * Initialise a ToDos task with a completed status.
+     * @param completed The completed status of the task.
+     * @param description The description of the task.
+     */
     public ToDos(boolean completed, String description) {
         super(completed, description);
     }
@@ -40,7 +52,10 @@ public class ToDos extends Task {
         return "T | " + super.taskOutput();
     }
 
-    // Override the toString method to return a customized representation of the task.
+    /**
+     * Override toString to return a customized representation of the task.
+     * @return A customized representation of the task.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();

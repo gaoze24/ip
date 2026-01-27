@@ -2,16 +2,32 @@ package yoyo.task;
 
 import java.time.LocalDate;
 
+/**
+ * A subclass of the Task class has a start and end date.
+ */
 public class Events extends Task {
     private LocalDate start;
     private LocalDate end;
 
+    /**
+     * Initialise an Event task.
+     * @param name Name of the event
+     * @param start Start date of the event
+     * @param end End date of the event
+     */
     public Events(String name, String start, String end) {
         super(name, "event");
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
 
+    /**
+     * Initialise an Event task with a completed status.
+     * @param completed Completed status of the task.
+     * @param name Name of the event
+     * @param start Start date of the event
+     * @param end End date of the event
+     */
     public Events(boolean completed, String name, String start, String end) {
         super(completed, name);
         this.start = LocalDate.parse(start);
@@ -51,7 +67,10 @@ public class Events extends Task {
         return "E | " + super.taskOutput() + " | " + this.start + " | " + this.end;
     }
 
-    // Override the toString method to return a customized representation of the task.
+    /**
+     * Override toString to return a customized representation of the task.
+     * @return A customized representation of the task in String format.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";

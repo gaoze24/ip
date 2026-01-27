@@ -2,14 +2,28 @@ package yoyo.task;
 
 import java.time.LocalDate;
 
+/**
+ * A subclass of the Task class, with a deadline.
+ */
 public class Deadlines extends Task {
     private LocalDate deadline;
 
+    /**
+     * Initialise a Deadlines task.
+     * @param name Name of the task
+     * @param deadline Deadline of the task
+     */
     public Deadlines(String name, String deadline) {
         super(name, "deadline");
         this.deadline = LocalDate.parse(deadline);
     }
 
+    /**
+     * Initialise a Deadlines task with a completed status.
+     * @param completed Completed status of the task
+     * @param description Description of the task
+     * @param deadline Deadline of the task
+     */
     public Deadlines(boolean completed, String description, String deadline) {
         super(completed, description);
         this.deadline = LocalDate.parse(deadline);
@@ -47,7 +61,10 @@ public class Deadlines extends Task {
         return "D | " + super.taskOutput() + " | " + this.deadline;
     }
 
-    // Override the toString method to return a customized representation of the task.
+    /**
+     * Override toString to return a customized representation of the task.
+     * @return A customized representation of the task in String format.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline + ")";

@@ -2,49 +2,84 @@ package yoyo.task;
 
 import java.time.LocalDate;
 
+/**
+ * Base class for all types of tasks.
+ * Has attributes completed, description, and type.
+ */
 public class Task {
     private boolean completed;
     private String description;
     private String type;
 
+    /**
+     * Initialise the Task class.
+     */
     public Task() {}
 
+    /**
+     * Initialise the Task class with a type.
+     * @param type type of the task
+     */
     public Task(String type) {
         this.completed = false;
         this.type = type;
     }
 
+    /**
+     * Initialise the Task class with a description and a type.
+     * @param description description of the task
+     * @param type type of the task
+     */
     public Task(String description, String type) {
         this.completed = false;
         this.description = description;
         this.type = type;
     }
 
+    /**
+     * Initialise the Task class with a completed status and a description.
+     * @param completed completed status of the task
+     * @param description description of the task
+     */
     public Task(boolean completed, String description) {
         this.completed = completed;
         this.description = description;
     }
 
-    // Method that return a boolean value to indicate if the task is completed.
+    /**
+     * Check if the task is completed.
+     * @return True if the task is completed, False otherwise.
+     */
     public boolean isCompleted() {
         return this.completed;
     }
 
-    // Method that returns the description of the task.
+    /**
+     * Get the description of the task.
+     * @return The description of the task in String format.
+     */
     public String getDescription() {
         return this.description;
     }
 
-    // Method that marks the task as completed.
+    /**
+     * Set the task as complete.
+     */
     public void complete() {
         this.completed = true;
     }
 
-    // Method that marks the task as not completed.
+    /**
+     * Set the task as incomplete.
+     */
     public void incomplete() {
         this.completed = false;
     }
 
+    /**
+     * Return a customized representation of the task for file storage purposes.
+     * @return A customized representation of the task in String format.
+     */
     public String taskOutput() {
         return this.completed + " | " +  this.description;
     }
@@ -66,7 +101,10 @@ public class Task {
         return false;
     }
 
-    // Override the toString method to return a customized representation of the task.
+    /**
+     * Return a customized representation of the task.
+     * @return A customized representation of the task in String format.
+     */
     @Override
     public String toString() {
         String status = this.completed ? "X" : " ";

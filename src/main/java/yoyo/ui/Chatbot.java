@@ -9,13 +9,18 @@ import yoyo.task.Tasks;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Handles UI and chat logics.
+ */
 public class Chatbot {
     private Tasks tasks;
     private TaskFile taskfile;
     private Parser parser;
     private Command command;
 
-    // Constructor for yoyo.ui.Chatbot class, requires no input parameters.
+    /**
+     * Initialise the Chatbot class.
+     */
     public Chatbot() {
         this.tasks = new Tasks();
         this.taskfile = new TaskFile();
@@ -23,7 +28,10 @@ public class Chatbot {
         this.command = new Command();
     }
 
-    // Main method that handles chat logics
+    /**
+     * Method that handles chat logics.
+     * Works with Task, TaskFile, Parser and Command classes.
+     */
     public void chat() {
         Scanner sc = new Scanner(System.in);
         String horizontal_line = "-----------------------------";
@@ -57,14 +65,14 @@ public class Chatbot {
     }
 
     /**
-     * Use the output from tasks class to write to the task file
+     * Use the output from the tasks class to write to the task file
      */
     private void saveTask() {
         this.taskfile.WriteList(tasks.fileOutput());
     }
 
     /**
-     * Read the string list from the task file and store the task into tasks class.
+     * Read the string list from the task file and store the task into a tasks class.
      */
     private void readTask() {
         List<String> list = this.taskfile.ReadList();
