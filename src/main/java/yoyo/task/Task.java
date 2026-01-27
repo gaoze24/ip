@@ -3,31 +3,31 @@ package yoyo.task;
 import java.time.LocalDate;
 
 public class Task {
-    private boolean completed;
+    private boolean isCompleted;
     private String description;
     private String type;
 
     public Task() {}
 
     public Task(String type) {
-        this.completed = false;
+        this.isCompleted = false;
         this.type = type;
     }
 
     public Task(String description, String type) {
-        this.completed = false;
+        this.isCompleted = false;
         this.description = description;
         this.type = type;
     }
 
     public Task(boolean completed, String description) {
-        this.completed = completed;
+        this.isCompleted = completed;
         this.description = description;
     }
 
     // Method that return a boolean value to indicate if the task is completed.
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     // Method that returns the description of the task.
@@ -37,16 +37,16 @@ public class Task {
 
     // Method that marks the task as completed.
     public void complete() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     // Method that marks the task as not completed.
     public void incomplete() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public String taskOutput() {
-        return this.completed + " | " +  this.description;
+        return this.isCompleted + " | " +  this.description;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Task {
     // Override the toString method to return a customized representation of the task.
     @Override
     public String toString() {
-        String status = this.completed ? "X" : " ";
+        String status = this.isCompleted ? "X" : " ";
         return "[" + status + "] " + this.description;
     }
 }

@@ -5,10 +5,8 @@ import java.util.ArrayList;
 
 public class Tasks {
     private ArrayList<Task> tasks = new ArrayList<>();
-    private int count;
 
     public Tasks() {
-        this.count = 0;
     }
 
     /**
@@ -60,7 +58,7 @@ public class Tasks {
 
     // Method that returns the number of tasks in the array.
     public int count() {
-        return this.count;
+        return this.tasks.size();
     }
 
     // Method that checks if a specific task exists in the array.

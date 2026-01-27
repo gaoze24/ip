@@ -48,7 +48,7 @@ public class ChatbotTest {
         Chatbot chatbot = new Chatbot();
         chatbot.chat();
         String output = outContent.toString();
-        assertTrue(output.contains("Hello! I'm yoyo.ui.Yoyo."));
+        assertTrue(output.contains("Hello! I'm Yoyo."));
         assertTrue(output.contains("Bye. Hope to see you again!"));
     }
 
