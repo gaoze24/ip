@@ -53,7 +53,7 @@ public class TaskFileTest {
     public void testWriteList_success() throws IOException {
         TaskFile taskFile = new TaskFile();
         String message = "T | true | read book";
-        boolean result = taskFile.WriteList(message);
+        boolean result = taskFile.writeList(message);
         assertTrue(result);
         assertEquals(message, Files.readString(path));
     }
@@ -63,8 +63,7 @@ public class TaskFileTest {
         TaskFile taskFile = new TaskFile();
         String content = "T | true | read book\nD | false | return book | 2024-12-31";
         Files.writeString(path, content);
-        
-        List<String> list = taskFile.ReadList();
+        List<String> list = taskFile.readList();
         assertEquals(2, list.size());
         assertEquals("T | true | read book", list.get(0));
         assertEquals("D | false | return book | 2024-12-31", list.get(1));
@@ -74,8 +73,7 @@ public class TaskFileTest {
     public void testReadList_emptyFile() throws IOException {
         TaskFile taskFile = new TaskFile();
         Files.writeString(path, "");
-        
-        List<String> list = taskFile.ReadList();
+        List<String> list = taskFile.readList();
         assertTrue(list.isEmpty());
     }
 }

@@ -53,7 +53,7 @@ public class ChatbotTest {
     }
 
     @Test
-    public void chat_todo_list_bye() {
+    public void chatTodoListBye() {
         provideInput("todo read book\nlist\nbye\n");
         Chatbot chatbot = new Chatbot();
         chatbot.chat();
@@ -65,7 +65,7 @@ public class ChatbotTest {
     }
 
     @Test
-    public void chat_invalidCommand() {
+    public void chatInvalidCommand() {
         provideInput("invalid_command info\nbye\n");
         Chatbot chatbot = new Chatbot();
         chatbot.chat();
@@ -75,7 +75,7 @@ public class ChatbotTest {
     }
 
     @Test
-    public void chat_missingDescription() {
+    public void chatMissingDescription() {
         provideInput("todo\nbye\n");
         Chatbot chatbot = new Chatbot();
         chatbot.chat();

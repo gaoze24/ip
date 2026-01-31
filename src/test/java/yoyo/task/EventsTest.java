@@ -17,7 +17,6 @@ public class EventsTest {
     public void testTaskOutput() {
         Events event = new Events("project meeting", "2024-12-31", "2025-01-01");
         assertEquals("E | false | project meeting | 2024-12-31 | 2025-01-01", event.taskOutput());
-        
         Events event2 = new Events(true, "project meeting", "2024-12-31", "2025-01-01");
         assertEquals("E | true | project meeting | 2024-12-31 | 2025-01-01", event2.taskOutput());
     }

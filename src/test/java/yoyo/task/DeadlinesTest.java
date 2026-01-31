@@ -17,7 +17,6 @@ public class DeadlinesTest {
     public void testTaskOutput() {
         Deadlines deadline = new Deadlines("return book", "2024-12-31");
         assertEquals("D | false | return book | 2024-12-31", deadline.taskOutput());
-        
         Deadlines deadline2 = new Deadlines(true, "return book", "2024-12-31");
         assertEquals("D | true | return book | 2024-12-31", deadline2.taskOutput());
     }

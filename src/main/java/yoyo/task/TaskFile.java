@@ -34,7 +34,7 @@ public class TaskFile {
      *
      * @return A list of strings of content from the task file
      */
-    public List<String> ReadList() {
+    public List<String> readList() {
         try {
             List<String> list = Files.readAllLines(path);
             return list;
@@ -50,7 +50,7 @@ public class TaskFile {
      * @param message The message to be written.
      * @return True/False on whether writing is successful.
      */
-    public boolean WriteList(String message){
+    public boolean writeList(String message) {
         try {
             Files.writeString(path, message);
             return true;

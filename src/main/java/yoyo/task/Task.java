@@ -81,7 +81,7 @@ public class Task {
      * @return A customized representation of the task in String format.
      */
     public String taskOutput() {
-        return this.isCompleted + " | " +  this.description;
+        return this.isCompleted + " | " + this.description;
     }
 
     /**
