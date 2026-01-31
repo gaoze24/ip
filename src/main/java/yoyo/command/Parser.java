@@ -15,7 +15,7 @@ import java.util.Set;
  * yoyo.command.Parser class is responsible for parsing input and checking input integrity.
  */
 public class Parser {
-    private final Set<String> OPERATIONS =
+    private static final Set<String> OPERATIONS =
             Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check");
 
     /**
@@ -74,7 +74,7 @@ public class Parser {
             inputs = new String[0];
         }
 
-        if (!OPERATIONS.contains(task)) {
+        if (!Parser.OPERATIONS.contains(task)) {
             throw new YoyoException("Sorry, I do not recognise this.");
         } else if (task.equals("todo") && inputs.length == 0) {
             throw new YoyoException("Sorry, the description of a todo cannot be empty");
@@ -148,7 +148,7 @@ public class Parser {
         try {
             Double.parseDouble(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }

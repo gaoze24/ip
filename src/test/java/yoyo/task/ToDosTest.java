@@ -14,7 +14,6 @@ public class ToDosTest {
     public void testTaskOutput() {
         ToDos todo = new ToDos("read book");
         assertEquals("T | false | read book", todo.taskOutput());
-        
         ToDos todo2 = new ToDos(true, "read book");
         assertEquals("T | true | read book", todo2.taskOutput());
     }
