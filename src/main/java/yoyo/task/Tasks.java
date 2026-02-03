@@ -21,11 +21,13 @@ public class Tasks {
      *
      * @param task The task to be stored
      */
-    public void storeTask(Task task) {
-        System.out.println("Got it. I've added this task:");
+    public String storeTask(Task task) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Got it. I've added this task:\n");
         tasks.add(task);
-        System.out.println("  " + tasks.get(tasks.size() - 1).toString());
-        System.out.println("Now you have " + tasks.size() + " task/s in the list.");
+        sb.append("  ").append(tasks.get(tasks.size() - 1).toString()).append("\n");
+        sb.append("Now you have ").append(tasks.size()).append(" task/s in the list.");
+        return sb.toString();
     }
 
     /**

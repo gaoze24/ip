@@ -29,8 +29,8 @@ public class TasksTest {
 
     @Test
     public void testStoreTask() {
-        tasks.storeTask(new ToDos("test"));
-        assertTrue(outContent.toString().contains("Got it. I've added this task:"));
+        String response = tasks.storeTask(new ToDos("test"));
+        assertTrue(response.contains("Got it. I've added this task:"));
         assertTrue(tasks.showTask(1).contains("test"));
     }
 

@@ -25,6 +25,7 @@ public class Chatbot {
      * Initialise the Chatbot class.
      */
     public Chatbot() {
+        readTask();
     }
 
     /**
@@ -33,8 +34,6 @@ public class Chatbot {
      */
     public void chat() {
         Scanner sc = new Scanner(System.in);
-
-        readTask();
 
         printHorizonalLine();
         System.out.println("Hello! I'm Yoyo.");
@@ -47,7 +46,8 @@ public class Chatbot {
 
             try {
                 Task task = this.parser.parse(input, tasks);
-                this.command.execute(tasks, task);
+                String response = this.command.execute(tasks, task);
+                System.out.println(response);
                 saveTask();
             } catch (YoyoException e) {
                 System.out.println(e.getMessage());
@@ -60,6 +60,25 @@ public class Chatbot {
         printHorizonalLine();
         System.out.println("Bye. Hope to see you again!");
         printHorizonalLine();
+    }
+
+    /**
+     * Returns a response from the chatbot based on the input.
+     * @param input User input.
+     * @return Chatbot's response.
+     */
+    public String getResponse(String input) {
+        if (input.equals("bye")) {
+            return "Bye. Hope to see you again!";
+        }
+        try {
+            Task task = this.parser.parse(input, tasks);
+            String response = this.command.execute(tasks, task);
+            saveTask();
+            return response;
+        } catch (YoyoException e) {
+            return e.getMessage();
+        }
     }
 
     private void printHorizonalLine() {
