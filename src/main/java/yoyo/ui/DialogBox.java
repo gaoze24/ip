@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * An example of a custom control.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
@@ -50,10 +49,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for the user.
+     * @param text The user's message.
+     * @param img The user's avatar.
+     * @return A DialogBox containing the user's message and avatar.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img, "user-label");
     }
 
+    /**
+     * Creates a dialog box for the chatbot (Yoyo).
+     * @param text The chatbot's response.
+     * @param img The chatbot's avatar.
+     * @return A DialogBox containing the chatbot's message and avatar.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img, "duke-label");
         db.flip();

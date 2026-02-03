@@ -36,12 +36,16 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets the chatbot instance for this controller.
+     * @param d The Chatbot instance.
+     */
     public void setYoyo(Chatbot d) {
         yoyo = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Yoyo's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
