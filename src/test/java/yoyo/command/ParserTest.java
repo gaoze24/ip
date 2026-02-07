@@ -3,9 +3,9 @@ package yoyo.command;
 import org.junit.jupiter.api.Test;
 import yoyo.exception.YoyoException;
 import yoyo.task.Tasks;
-import yoyo.task.ToDos;
-import yoyo.task.Deadlines;
-import yoyo.task.Events;
+import yoyo.task.ToDo;
+import yoyo.task.Deadline;
+import yoyo.task.Event;
 import yoyo.task.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +19,7 @@ public class ParserTest {
     @Test
     public void parse_todo_success() throws YoyoException {
         Task result = parser.parse("todo borrow book", tasks);
-        assertTrue(result instanceof ToDos);
+        assertTrue(result instanceof ToDo);
         assertEquals("borrow book", result.getDescription());
         assertEquals("Todo", result.getType());
     }
@@ -27,7 +27,7 @@ public class ParserTest {
     @Test
     public void parse_deadline_success() throws YoyoException {
         Task result = parser.parse("deadline return book /by 2024-12-31", tasks);
-        assertTrue(result instanceof Deadlines);
+        assertTrue(result instanceof Deadline);
         assertEquals("return book", result.getDescription());
         assertEquals("Deadline", result.getType());
     }
@@ -35,7 +35,7 @@ public class ParserTest {
     @Test
     public void parse_event_success() throws YoyoException {
         Task result = parser.parse("event project meeting /from 2024-12-31 /to 2025-01-01", tasks);
-        assertTrue(result instanceof Events);
+        assertTrue(result instanceof Event);
         assertEquals("project meeting", result.getDescription());
         assertEquals("Event", result.getType());
     }
@@ -48,7 +48,7 @@ public class ParserTest {
 
     @Test
     public void parse_mark_success() throws YoyoException {
-        tasks.storeTask(new ToDos("test"));
+        tasks.storeTask(new ToDo("test"));
         Task result = parser.parse("mark 1", tasks);
         assertEquals("mark", result.getType());
         assertEquals("1", result.getDescription());

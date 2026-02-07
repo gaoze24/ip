@@ -18,8 +18,10 @@ public class Command {
     public String execute(Tasks tasks, Task task) {
         assert tasks != null : "Tasks container should not be null";
         assert task != null : "Task to execute should not be null";
+
         String type = task.getType();
         assert type != null : "Task type should not be null";
+
         if (type.equals("mark")) {
             int index = Integer.parseInt(task.getDescription());
             tasks.completeTask(index);

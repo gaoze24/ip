@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * A subclass of the Task class has a start and end date.
  */
-public class Events extends Task {
+public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
@@ -15,7 +15,7 @@ public class Events extends Task {
      * @param start Start date of the event
      * @param end End date of the event
      */
-    public Events(String name, String start, String end) {
+    public Event(String name, String start, String end) {
         super(name, "event");
         assert start != null : "Start date string cannot be null";
         assert end != null : "End date string cannot be null";
@@ -24,14 +24,14 @@ public class Events extends Task {
     }
 
     /**
-     * Initialise an Event task with a completed status.
-     * @param completed Completed status of the task.
+     * Initialise an Event task with a isCompleted status.
+     * @param isCompleted Completed status of the task.
      * @param name Name of the event
      * @param start Start date of the event
      * @param end End date of the event
      */
-    public Events(boolean completed, String name, String start, String end) {
-        super(completed, name);
+    public Event(boolean isCompleted, String name, String start, String end) {
+        super(isCompleted, name);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }
@@ -50,13 +50,11 @@ public class Events extends Task {
      * @return True is the task is active on this date, False otherwise.
      */
     @Override
-    public boolean checkDate(LocalDate date) {
+    public boolean isCorrectDate(LocalDate date) {
         if (this.start.isEqual(date) || this.end.equals(date)) {
             return true;
-        } else if (this.start.isBefore(date) && this.end.isAfter(date)) {
-            return true;
         } else {
-            return false;
+            return this.start.isBefore(date) && this.end.isAfter(date);
         }
     }
 
@@ -65,8 +63,8 @@ public class Events extends Task {
      * @return Information about the task in String format.
      */
     @Override
-    public String taskOutput() {
-        return "E | " + super.taskOutput() + " | " + this.start + " | " + this.end;
+    public String getTaskOutput() {
+        return "E | " + super.getTaskOutput() + " | " + this.start + " | " + this.end;
     }
 
     /**

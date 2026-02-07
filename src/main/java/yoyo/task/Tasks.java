@@ -37,11 +37,11 @@ public class Tasks {
      */
     public void storeTask(String[] list) {
         if (list.length == 3) {
-            tasks.add(new ToDos(list[0].equals("true"), list[1]));
+            tasks.add(new ToDo(list[0].equals("true"), list[1]));
         } else if (list.length == 4) {
-            tasks.add(new Deadlines(list[0].equals("true"), list[1], list[2]));
+            tasks.add(new Deadline(list[0].equals("true"), list[1], list[2]));
         } else if (list.length == 5) {
-            tasks.add(new Events(list[0].equals("true"), list[1], list[2], list[3]));
+            tasks.add(new Event(list[0].equals("true"), list[1], list[2], list[3]));
         }
     }
 
@@ -95,11 +95,7 @@ public class Tasks {
      * @return True if the index is valid, False otherwise.
      */
     public boolean checkExists(int index) {
-        if (index > tasks.size() || index <= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return index <= tasks.size() && index > 0;
     }
 
     /**
@@ -128,14 +124,14 @@ public class Tasks {
      *
      * @return all the information about tasks in a string
      */
-    public String fileOutput() {
+    public String getFileOutput() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (i == tasks.size() - 1) {
-                sb.append(task.taskOutput());
+                sb.append(task.getTaskOutput());
             } else {
-                sb.append(task.taskOutput()).append("\n");
+                sb.append(task.getTaskOutput()).append("\n");
             }
         }
         return sb.toString();
@@ -151,7 +147,7 @@ public class Tasks {
     public String checkDate(LocalDate date) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).checkDate(date)) {
+            if (tasks.get(i).isCorrectDate(date)) {
                 sb.append(tasks.get(i).toString());
                 if (i != tasks.size() - 1) {
                     sb.append("\n");

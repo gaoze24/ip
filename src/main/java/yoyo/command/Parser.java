@@ -1,11 +1,11 @@
 package yoyo.command;
 
 import yoyo.exception.YoyoException;
-import yoyo.task.Deadlines;
-import yoyo.task.Events;
+import yoyo.task.Deadline;
+import yoyo.task.Event;
 import yoyo.task.Task;
 import yoyo.task.Tasks;
-import yoyo.task.ToDos;
+import yoyo.task.ToDo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -19,7 +19,7 @@ public class Parser {
             Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check");
 
     /**
-     * Parsing the user input into machine-friendly format.
+     * Parsing the user input into a machine-friendly format.
      * Return a task variable to be further executed by yoyo.command.Command class.
      *
      * @param input The user input that is to be parsed.
@@ -39,14 +39,14 @@ public class Parser {
             return new Task("list");
         } else if (elements.length == 1) {
             if (firstPart[0].equals("todo")) {
-                return new ToDos(firstPart[1]);
+                return new ToDo(firstPart[1]);
             } else {
                 return new Task(firstPart[1], firstPart[0]);
             }
         } else if (elements.length == 2) {
-            return new Deadlines(firstPart[1], elements[1]);
+            return new Deadline(firstPart[1], elements[1]);
         } else if (elements.length == 3) {
-            return new Events(firstPart[1], elements[1], elements[2]);
+            return new Event(firstPart[1], elements[1], elements[2]);
         }
 
         return new Task();
@@ -83,9 +83,9 @@ public class Parser {
         } else if (task.equals("event")) {
             String[] s = input.split(" /from | /to ");
             if (inputs.length == 1) {
-                throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
+                throw new YoyoException("Sorry, the description and duration of an event cannot be empty");
             } else if (s.length != 3 || s[0].isEmpty()) {
-                throw new YoyoException("Sorry, the description and duration of a event cannot be empty");
+                throw new YoyoException("Sorry, the description and duration of an event cannot be empty");
             }
             try {
                 LocalDate start = LocalDate.parse(s[1]);

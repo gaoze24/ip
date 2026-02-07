@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import yoyo.task.Task;
 import yoyo.task.Tasks;
-import yoyo.task.ToDos;
+import yoyo.task.ToDo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -30,7 +30,7 @@ public class CommandTest {
 
     @Test
     public void execute_mark_success() {
-        tasks.storeTask(new ToDos("test task"));
+        tasks.storeTask(new ToDo("test task"));
         Task markTask = new Task("1", "mark");
         String response = command.execute(tasks, markTask);
         assertTrue(response.contains("Nice! I've marked this task as done:"));
@@ -39,7 +39,7 @@ public class CommandTest {
 
     @Test
     public void execute_unmark_success() {
-        tasks.storeTask(new ToDos("test task"));
+        tasks.storeTask(new ToDo("test task"));
         tasks.completeTask(1);
         Task unmarkTask = new Task("1", "unmark");
         String response = command.execute(tasks, unmarkTask);
@@ -49,7 +49,7 @@ public class CommandTest {
 
     @Test
     public void execute_list_success() {
-        tasks.storeTask(new ToDos("test task"));
+        tasks.storeTask(new ToDo("test task"));
         Task listTask = new Task("list");
         String response = command.execute(tasks, listTask);
         assertTrue(response.contains("1. [T][ ] test task"));
@@ -57,7 +57,7 @@ public class CommandTest {
 
     @Test
     public void execute_delete_success() {
-        tasks.storeTask(new ToDos("test task"));
+        tasks.storeTask(new ToDo("test task"));
         Task deleteTask = new Task("1", "delete");
         String response = command.execute(tasks, deleteTask);
         assertTrue(response.contains("Nice! I've deleted this task as done:"));
@@ -65,7 +65,7 @@ public class CommandTest {
 
     @Test
     public void execute_addTodo_success() {
-        Task todoTask = new ToDos("new todo");
+        Task todoTask = new ToDo("new todo");
         String response = command.execute(tasks, todoTask);
         assertTrue(response.contains("Got it. I've added this task:"));
         assertTrue(tasks.showTask(1).contains("[ ] new todo"));

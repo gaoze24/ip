@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * A subclass of the Task class, with a deadline.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
     private LocalDate deadline;
 
     /**
@@ -13,7 +13,7 @@ public class Deadlines extends Task {
      * @param name Name of the task
      * @param deadline Deadline of the task
      */
-    public Deadlines(String name, String deadline) {
+    public Deadline(String name, String deadline) {
         super(name, "deadline");
         assert deadline != null : "Deadline string cannot be null";
         this.deadline = LocalDate.parse(deadline);
@@ -21,12 +21,12 @@ public class Deadlines extends Task {
 
     /**
      * Initialise a Deadlines task with a completed status.
-     * @param completed Completed status of the task
+     * @param isCompleted Completed status of the task
      * @param description Description of the task
      * @param deadline Deadline of the task
      */
-    public Deadlines(boolean completed, String description, String deadline) {
-        super(completed, description);
+    public Deadline(boolean isCompleted, String description, String deadline) {
+        super(isCompleted, description);
         this.deadline = LocalDate.parse(deadline);
     }
 
@@ -45,12 +45,8 @@ public class Deadlines extends Task {
      * @return True is the task is active on this date, False otherwise.
      */
     @Override
-    public boolean checkDate(LocalDate date) {
-        if (this.deadline.isEqual(date)) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean isCorrectDate(LocalDate date) {
+        return this.deadline.isEqual(date);
     }
 
     /**
@@ -58,8 +54,8 @@ public class Deadlines extends Task {
      * @return Information about the task in String format.
      */
     @Override
-    public String taskOutput() {
-        return "D | " + super.taskOutput() + " | " + this.deadline;
+    public String getTaskOutput() {
+        return "D | " + super.getTaskOutput() + " | " + this.deadline;
     }
 
     /**
