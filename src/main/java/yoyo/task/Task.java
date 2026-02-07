@@ -33,6 +33,7 @@ public class Task {
     public Task(String description, String type) {
         assert description != null : "Task description cannot be null";
         assert type != null : "Task type cannot be null";
+
         this.isCompleted = false;
         this.description = description;
         this.type = type;
@@ -82,7 +83,7 @@ public class Task {
      * Return a customized representation of the task for file storage purposes.
      * @return A customized representation of the task in String format.
      */
-    public String taskOutput() {
+    public String getTaskOutput() {
         return this.isCompleted + " | " + this.description;
     }
 
@@ -99,7 +100,7 @@ public class Task {
      * @param date The date to be checked.
      * @return True is the task is active on this date, False otherwise.
      */
-    public boolean checkDate(LocalDate date) {
+    public boolean isCorrectDate(LocalDate date) {
         return false;
     }
 

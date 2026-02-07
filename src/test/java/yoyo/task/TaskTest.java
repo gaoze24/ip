@@ -31,10 +31,10 @@ public class TaskTest {
     }
 
     @Test
-    public void testTaskOutput() {
+    public void testGetTaskOutput() {
         Task task = new Task("test task", "todo");
-        assertEquals("false | test task", task.taskOutput());
+        assertEquals("false | test task", task.getTaskOutput());
         task.complete();
-        assertEquals("true | test task", task.taskOutput());
+        assertEquals("true | test task", task.getTaskOutput());
     }
 }

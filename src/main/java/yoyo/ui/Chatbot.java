@@ -89,7 +89,7 @@ public class Chatbot {
      * Use the output from the tasks class to write to the task file
      */
     private void saveTask() {
-        this.taskfile.writeList(tasks.fileOutput());
+        this.taskfile.writeList(tasks.getFileOutput());
     }
 
     /**

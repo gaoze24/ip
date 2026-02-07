@@ -10,7 +10,7 @@ import java.util.List;
  * Handles yoyo.task.Task Files reading and writing logics.
  */
 public class TaskFile {
-    private Path path = Path.of("./data/yoyo.txt");
+    private final Path path = Path.of("./data/yoyo.txt");
 
     /**
      * Initialise the yoyo.task.TaskFile class, check if the task file exists.
@@ -36,8 +36,7 @@ public class TaskFile {
      */
     public List<String> readList() {
         try {
-            List<String> list = Files.readAllLines(path);
-            return list;
+            return Files.readAllLines(path);
         } catch (IOException e) {
             return new ArrayList<>();
         }

@@ -29,7 +29,7 @@ public class TasksTest {
 
     @Test
     public void testStoreTask() {
-        String response = tasks.storeTask(new ToDos("test"));
+        String response = tasks.storeTask(new ToDo("test"));
         assertTrue(response.contains("Got it. I've added this task:"));
         assertTrue(tasks.showTask(1).contains("test"));
     }
@@ -46,7 +46,7 @@ public class TasksTest {
 
     @Test
     public void testCompleteAndIncompleteTask() {
-        tasks.storeTask(new ToDos("test"));
+        tasks.storeTask(new ToDo("test"));
         tasks.completeTask(1);
         assertTrue(tasks.showTask(1).contains("[X]"));
         tasks.incompleteTask(1);
@@ -55,7 +55,7 @@ public class TasksTest {
 
     @Test
     public void testDeleteTask() {
-        tasks.storeTask(new ToDos("test"));
+        tasks.storeTask(new ToDo("test"));
         tasks.deleteTask(1);
         assertFalse(tasks.checkExists(1));
     }
@@ -63,25 +63,25 @@ public class TasksTest {
     @Test
     public void testCheckExists() {
         assertFalse(tasks.checkExists(1));
-        tasks.storeTask(new ToDos("test"));
+        tasks.storeTask(new ToDo("test"));
         assertTrue(tasks.checkExists(1));
         assertFalse(tasks.checkExists(2));
         assertFalse(tasks.checkExists(0));
     }
 
     @Test
-    public void testFileOutput() {
-        tasks.storeTask(new ToDos("test1"));
-        tasks.storeTask(new Deadlines("test2", "2024-12-31"));
-        String output = tasks.fileOutput();
+    public void testGetFileOutput() {
+        tasks.storeTask(new ToDo("test1"));
+        tasks.storeTask(new Deadline("test2", "2024-12-31"));
+        String output = tasks.getFileOutput();
         assertTrue(output.contains("T | false | test1"));
         assertTrue(output.contains("D | false | test2 | 2024-12-31"));
     }
 
     @Test
-    public void testCheckDate() {
-        tasks.storeTask(new Deadlines("test1", "2024-12-31"));
-        tasks.storeTask(new Events("test2", "2024-12-30", "2025-01-02"));
+    public void testIsCorrectDate() {
+        tasks.storeTask(new Deadline("test1", "2024-12-31"));
+        tasks.storeTask(new Event("test2", "2024-12-30", "2025-01-02"));
         String result = tasks.checkDate(LocalDate.parse("2024-12-31"));
         assertTrue(result.contains("test1"));
         assertTrue(result.contains("test2"));
