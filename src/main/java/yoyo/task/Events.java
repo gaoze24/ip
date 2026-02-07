@@ -17,6 +17,8 @@ public class Events extends Task {
      */
     public Events(String name, String start, String end) {
         super(name, "event");
+        assert start != null : "Start date string cannot be null";
+        assert end != null : "End date string cannot be null";
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
     }

@@ -15,6 +15,7 @@ public class Deadlines extends Task {
      */
     public Deadlines(String name, String deadline) {
         super(name, "deadline");
+        assert deadline != null : "Deadline string cannot be null";
         this.deadline = LocalDate.parse(deadline);
     }
 

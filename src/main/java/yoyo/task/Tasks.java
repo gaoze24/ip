@@ -50,6 +50,7 @@ public class Tasks {
      * @param index The index of the task to be marked as completed.
      */
     public void completeTask(int index) {
+        assert index > 0 && index <= tasks.size() : "Task index out of bounds for completion";
         tasks.get(index - 1).complete();
     }
 
@@ -58,6 +59,7 @@ public class Tasks {
      * @param index The index of the task to be marked as incomplete.
      */
     public void incompleteTask(int index) {
+        assert index > 0 && index <= tasks.size() : "Task index out of bounds for incompletion";
         tasks.get(index - 1).incomplete();
     }
 
@@ -75,6 +77,7 @@ public class Tasks {
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
+        assert index > 0 && index <= tasks.size() : "Task index out of bounds for deletion";
         tasks.remove(index - 1);
     }
 
