@@ -28,6 +28,8 @@ public class Parser {
      * @throws YoyoException If the user input is not in the right format.
      */
     public Task parse(String input, Tasks tasks) throws YoyoException {
+        assert input != null : "Input string to parse cannot be null";
+        assert tasks != null : "Tasks list cannot be null";
         checkInput(input, tasks);
 
         String[] elements = input.split(" /to | /from | /by ");

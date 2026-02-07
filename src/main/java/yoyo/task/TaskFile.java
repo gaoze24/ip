@@ -51,6 +51,7 @@ public class TaskFile {
      * @return True/False on whether writing is successful.
      */
     public boolean writeList(String message) {
+        assert message != null : "Message to write cannot be null";
         try {
             Files.writeString(path, message);
             return true;
