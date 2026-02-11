@@ -96,6 +96,14 @@ public class Task {
     }
 
     /**
+     * Get the date of the task.
+     * @return The date of the task if applicable, null otherwise.
+     */
+    public LocalDate getDate() {
+        return null;
+    }
+
+    /**
      * Check if the task is active on this date.
      * @param date The date to be checked.
      * @return True is the task is active on this date, False otherwise.

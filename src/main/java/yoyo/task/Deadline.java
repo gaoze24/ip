@@ -40,6 +40,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Get the date of the task.
+     * @return The deadline of the task.
+     */
+    @Override
+    public LocalDate getDate() {
+        return this.deadline;
+    }
+
+    /**
      * Check if the task is active on this date.
      * @param date The date to be checked.
      * @return True is the task is active on this date, False otherwise.

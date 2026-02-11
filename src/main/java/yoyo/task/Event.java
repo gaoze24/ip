@@ -45,6 +45,15 @@ public class Event extends Task {
     }
 
     /**
+     * Get the date of the task.
+     * @return The start date of the event.
+     */
+    @Override
+    public LocalDate getDate() {
+        return this.start;
+    }
+
+    /**
      * Check if the task is active on this date.
      * @param date The date to be checked.
      * @return True is the task is active on this date, False otherwise.

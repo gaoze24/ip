@@ -2,6 +2,7 @@ package yoyo.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * A container for storing Task objects.
@@ -27,6 +28,7 @@ public class Tasks {
         tasks.add(task);
         sb.append("  ").append(tasks.get(tasks.size() - 1).toString()).append("\n");
         sb.append("Now you have ").append(tasks.size()).append(" task/s in the list.");
+        sortTask();
         return sb.toString();
     }
 
@@ -43,6 +45,15 @@ public class Tasks {
         } else if (list.length == 5) {
             tasks.add(new Event(list[0].equals("true"), list[1], list[2], list[3]));
         }
+        sortTask();
+    }
+
+    /**
+     * Sort the tasks automatically based on their due dates.
+     * Tasks without due dates will be placed at the start of the list.
+     */
+    private void sortTask() {
+        tasks.sort(Comparator.comparing(Task::getDate, Comparator.nullsFirst(Comparator.naturalOrder())));
     }
 
     /**
