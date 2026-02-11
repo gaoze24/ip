@@ -88,4 +88,19 @@ public class TasksTest {
         result = tasks.checkDate(LocalDate.parse("2024-12-29"));
         assertEquals("", result);
     }
+
+    @Test
+    public void testSortTask() {
+        tasks = new Tasks();
+        tasks.storeTask(new Deadline("late", "2025-01-01"));
+        tasks.storeTask(new ToDo("no date"));
+        tasks.storeTask(new Deadline("early", "2024-01-01"));
+        tasks.storeTask(new Event("middle", "2024-06-01", "2024-06-02"));
+
+        String output = tasks.toString();
+        // Expected order: 1. no date, 2. early, 3. middle, 4. late
+        assertTrue(output.indexOf("no date") < output.indexOf("early"));
+        assertTrue(output.indexOf("early") < output.indexOf("middle"));
+        assertTrue(output.indexOf("middle") < output.indexOf("late"));
+    }
 }
