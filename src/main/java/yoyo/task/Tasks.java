@@ -39,11 +39,11 @@ public class Tasks {
      */
     public void storeTask(String[] list) {
         if (list.length == 3) {
-            tasks.add(new ToDo(list[0].equals("true"), list[1]));
+            tasks.add(new ToDo(list[1].equals("true"), list[2]));
         } else if (list.length == 4) {
-            tasks.add(new Deadline(list[0].equals("true"), list[1], list[2]));
+            tasks.add(new Deadline(list[1].equals("true"), list[2], list[3]));
         } else if (list.length == 5) {
-            tasks.add(new Event(list[0].equals("true"), list[1], list[2], list[3]));
+            tasks.add(new Event(list[1].equals("true"), list[2], list[3], list[4]));
         }
         sortTask();
     }
