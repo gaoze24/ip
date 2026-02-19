@@ -4,7 +4,7 @@
 
 Yoyo is a task management chatbot. 
 
-![GUI Mockup](docs/Ui.png)
+![GUI Mockup](Ui.png)
 
 ## 📖 Table of Contents
 *   [Quick Start](#quick-start)
