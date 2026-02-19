@@ -15,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TaskFileTest {
     private final Path path = Path.of("./data/yoyo.txt");
     private String originalContent;
-    private boolean fileExists;
+    private boolean isFileExists;
 
     @BeforeEach
     public void setUp() throws IOException {
         // Save original file if it exists
         if (Files.exists(path)) {
             originalContent = Files.readString(path);
-            fileExists = true;
+            isFileExists = true;
         } else {
-            fileExists = false;
+            isFileExists = false;
         }
         // Ensure directory exists
         if (!Files.exists(path.getParent())) {
@@ -35,7 +35,7 @@ public class TaskFileTest {
     @AfterEach
     public void tearDown() throws IOException {
         // Restore original file
-        if (fileExists) {
+        if (isFileExists) {
             Files.writeString(path, originalContent);
         } else {
             Files.deleteIfExists(path);

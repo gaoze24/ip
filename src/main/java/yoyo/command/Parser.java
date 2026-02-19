@@ -113,62 +113,98 @@ public class Parser {
 
         String remaining = parts[1];
 
-        if (command.equals("todo")) {
-            if (remaining.trim().isEmpty()) {
-                throw new YoyoException("Sorry, the description of a todo cannot be empty");
-            }
-        } else if (command.equals("event")) {
-            String description = getPart(input, "event", "/from", "/to");
-            String from = getPartAfter(input, "/from");
-            String to = getPartAfter(input, "/to");
+        switch (command) {
+        case "todo":
+            validateTodo(remaining);
+            break;
+        case "event":
+            validateEvent(input);
+            break;
+        case "deadline":
+            validateDeadline(input);
+            break;
+        case "mark":
+        case "unmark":
+        case "delete":
+            validateIndexBasedCommand(command, remaining, tasks);
+            break;
+        case "check":
+            validateCheck(remaining);
+            break;
+        case "find":
+            validateFind(remaining);
+            break;
+        default:
+            // Should not reach here due to OPERATIONS.contains check
+            break;
+        }
+    }
 
-            if (description.isEmpty()) {
-                throw new YoyoException("Sorry, the description of an event cannot be empty");
-            }
-            if (from.isEmpty() || to.isEmpty()) {
-                throw new YoyoException("Sorry, the duration of an event cannot be empty (need /from and /to)");
-            }
-            try {
-                LocalDate.parse(from);
-                LocalDate.parse(to);
-            } catch (DateTimeParseException e) {
-                throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
-            }
-        } else if (command.equals("deadline")) {
-            String description = getPart(input, "deadline", "/by");
-            String by = getPartAfter(input, "/by");
+    private void validateTodo(String description) throws YoyoException {
+        if (description.trim().isEmpty()) {
+            throw new YoyoException("Sorry, the description of a todo cannot be empty");
+        }
+    }
 
-            if (description.isEmpty()) {
-                throw new YoyoException("Sorry, the description of a deadline cannot be empty");
-            }
-            if (by.isEmpty()) {
-                throw new YoyoException("Sorry, the date of a deadline cannot be empty (need /by)");
-            }
-            try {
-                LocalDate.parse(by);
-            } catch (DateTimeParseException e) {
-                throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
-            }
-        } else if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
-            String indexStr = parts[1].trim();
-            if (!isNumeric(indexStr)) {
-                throw new YoyoException("Sorry, you need to specify which task is to be " + command + "ed");
-            }
-            int index = Integer.parseInt(indexStr);
-            if (!tasks.checkExists(index)) {
-                throw new YoyoException("Sorry, the task does not exist");
-            }
-        } else if (command.equals("check")) {
-            String dateStr = parts[1].trim();
-            try {
-                LocalDate.parse(dateStr);
-            } catch (DateTimeParseException e) {
-                throw new YoyoException("Sorry, you have not input a valid date.  Please follow yyyy-mm-dd");
-            }
-        } else if (command.equals("find")) {
-            if (parts[1].trim().isEmpty()) {
-                throw new YoyoException("Sorry, you need to specify what you want to find");
-            }
+    private void validateEvent(String input) throws YoyoException {
+        String description = getPart(input, "event", "/from", "/to");
+        String from = getPartAfter(input, "/from");
+        String to = getPartAfter(input, "/to");
+
+        if (description.isEmpty()) {
+            throw new YoyoException("Sorry, the description of an event cannot be empty");
+        }
+        if (from.isEmpty() || to.isEmpty()) {
+            throw new YoyoException("Sorry, the duration of an event cannot be empty (need /from and /to)");
+        }
+        try {
+            LocalDate.parse(from);
+            LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
+        }
+    }
+
+    private void validateDeadline(String input) throws YoyoException {
+        String description = getPart(input, "deadline", "/by");
+        String by = getPartAfter(input, "/by");
+
+        if (description.isEmpty()) {
+            throw new YoyoException("Sorry, the description of a deadline cannot be empty");
+        }
+        if (by.isEmpty()) {
+            throw new YoyoException("Sorry, the date of a deadline cannot be empty (need /by)");
+        }
+        try {
+            LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
+        }
+    }
+
+    private void validateIndexBasedCommand(String command, String indexStr, Tasks tasks) throws YoyoException {
+        indexStr = indexStr.trim();
+        if (!isNumeric(indexStr)) {
+            throw new YoyoException("Sorry, you need to specify which task is to be " + command + "ed");
+        }
+        int index = Integer.parseInt(indexStr);
+        if (!tasks.checkExists(index)) {
+            throw new YoyoException("Sorry, the task does not exist");
+        }
+    }
+
+    private void validateCheck(String dateStr) throws YoyoException {
+        dateStr = dateStr.trim();
+        try {
+            LocalDate.parse(dateStr);
+        } catch (DateTimeParseException e) {
+            throw new YoyoException("Sorry, you have not input a valid date.  Please follow yyyy-mm-dd");
+        }
+    }
+
+    private void validateFind(String query) throws YoyoException {
+        if (query.trim().isEmpty()) {
+            throw new YoyoException("Sorry, you need to specify what you want to find");
         }
     }
 
