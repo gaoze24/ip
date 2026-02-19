@@ -90,6 +90,12 @@ public class TasksTest {
     }
 
     @Test
+    public void testToStringEmpty() {
+        tasks = new Tasks();
+        assertEquals("there is no active tasks", tasks.toString());
+    }
+
+    @Test
     public void testSortTask() {
         tasks = new Tasks();
         tasks.storeTask(new Deadline("late", "2025-01-01"));

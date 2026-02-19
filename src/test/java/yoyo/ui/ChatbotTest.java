@@ -43,6 +43,15 @@ public class ChatbotTest {
     }
 
     @Test
+    public void chatListEmpty() {
+        provideInput("list\nbye\n");
+        Chatbot chatbot = new Chatbot();
+        chatbot.chat();
+        String output = outContent.toString();
+        assertTrue(output.contains("there is no active tasks"));
+    }
+
+    @Test
     public void chat_bye_exits() {
         provideInput("bye\n");
         Chatbot chatbot = new Chatbot();

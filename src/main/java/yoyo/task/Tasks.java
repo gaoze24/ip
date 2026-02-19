@@ -174,6 +174,9 @@ public class Tasks {
      */
     @Override
     public String toString() {
+        if (tasks.isEmpty()) {
+            return "There is no active task";
+        }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             if (i == tasks.size() - 1) {
