@@ -49,7 +49,7 @@ public class ChatbotTest {
         chatbot.chat();
         String output = outContent.toString();
         assertTrue(output.contains("Hello! I'm Yoyo."));
-        assertTrue(output.contains("Bye. Hope to see you again!"));
+        assertTrue(output.contains("Bye. Hope to see you again!\nThe app will close in 5 seconds."));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ChatbotTest {
         assertTrue(output.contains("Got it. I've added this task:"));
         assertTrue(output.contains("[T][ ] read book"));
         assertTrue(output.contains("1. [T][ ] read book"));
-        assertTrue(output.contains("Bye. Hope to see you again!"));
+        assertTrue(output.contains("Bye. Hope to see you again!\nThe app will close in 5 seconds."));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ChatbotTest {
         chatbot.chat();
         String output = outContent.toString();
         assertTrue(output.contains("Sorry, I do not recognise this."));
-        assertTrue(output.contains("Bye. Hope to see you again!"));
+        assertTrue(output.contains("Bye. Hope to see you again!\nThe app will close in 5 seconds."));
     }
 
     @Test
@@ -81,6 +81,6 @@ public class ChatbotTest {
         chatbot.chat();
         String output = outContent.toString();
         assertTrue(output.contains("Missing description"));
-        assertTrue(output.contains("Bye. Hope to see you again!"));
+        assertTrue(output.contains("Bye. Hope to see you again!\nThe app will close in 5 seconds."));
     }
 }

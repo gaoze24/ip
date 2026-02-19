@@ -22,4 +22,5 @@ Now you have 3 task/s in the list.
 -----------------------------
 -----------------------------
 Bye. Hope to see you again!
+The app will close in 5 seconds.
 -----------------------------

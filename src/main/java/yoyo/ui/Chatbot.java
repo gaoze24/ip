@@ -71,7 +71,7 @@ public class Chatbot {
         }
 
         printHorizonalLine();
-        System.out.println("Bye. Hope to see you again!");
+        System.out.println("Bye. Hope to see you again!\nThe app will close in 5 seconds.");
         printHorizonalLine();
     }
 
@@ -84,7 +84,7 @@ public class Chatbot {
      */
     public String getResponse(String input) {
         if (input.equals("bye")) {
-            return "Bye. Hope to see you again!";
+            return "Bye. Hope to see you again!\nThe app will close in 5 seconds.";
         }
         try {
             Task task = this.parser.parse(input, tasks);
