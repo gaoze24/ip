@@ -75,4 +75,19 @@ public class ParserTest {
             parser.parse("deadline return book /by 2024-13-31", tasks);
         });
     }
+    @Test
+    public void parse_event_reversedOrder_success() throws YoyoException {
+        Task result = parser.parse("event project meeting /to 2025-01-01 /from 2024-12-31", tasks);
+        assertTrue(result instanceof Event);
+        assertEquals("project meeting", result.getDescription());
+        assertEquals("[E][ ] project meeting (from: 2024-12-31 to: 2025-01-01)", result.toString());
+    }
+
+    @Test
+    public void parse_deadline_extraSpaces_success() throws YoyoException {
+        Task result = parser.parse("deadline  return book  /by  2024-12-31 ", tasks);
+        assertTrue(result instanceof Deadline);
+        assertEquals("return book", result.getDescription());
+        assertEquals("[D][ ] return book (by: 2024-12-31)", result.toString());
+    }
 }

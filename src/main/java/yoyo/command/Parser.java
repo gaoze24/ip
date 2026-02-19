@@ -32,24 +32,61 @@ public class Parser {
         assert tasks != null : "Tasks list cannot be null";
         checkInput(input, tasks);
 
-        String[] elements = input.split(" /to | /from | /by ");
-        String[] firstPart = elements[0].split(" ", 2);
+        String[] firstPart = input.split(" ", 2);
+        String command = firstPart[0];
 
-        if (firstPart[0].equals("list")) {
+        if (command.equals("list")) {
             return new Task("list");
-        } else if (elements.length == 1) {
-            if (firstPart[0].equals("todo")) {
-                return new ToDo(firstPart[1]);
-            } else {
-                return new Task(firstPart[1], firstPart[0]);
-            }
-        } else if (elements.length == 2) {
-            return new Deadline(firstPart[1], elements[1]);
-        } else if (elements.length == 3) {
-            return new Event(firstPart[1], elements[1], elements[2]);
+        } else if (command.equals("todo")) {
+            return new ToDo(firstPart[1].trim());
+        } else if (command.equals("deadline")) {
+            String description = getPart(input, "deadline", "/by");
+            String by = getPartAfter(input, "/by");
+            return new Deadline(description, by);
+        } else if (command.equals("event")) {
+            String description = getPart(input, "event", "/from", "/to");
+            String from = getPartAfter(input, "/from");
+            String to = getPartAfter(input, "/to");
+            return new Event(description, from, to);
+        } else if (firstPart.length > 1) {
+            return new Task(firstPart[1], command);
         }
 
         return new Task();
+    }
+
+    private String getPart(String input, String command, String... delimiters) {
+        int startIndex = input.indexOf(command) + command.length();
+        int endIndex = input.length();
+        for (String delimiter : delimiters) {
+            int dIndex = input.indexOf(delimiter);
+            if (dIndex != -1 && dIndex < endIndex) {
+                endIndex = dIndex;
+            }
+        }
+        return input.substring(startIndex, endIndex).trim();
+    }
+
+    private String getPartAfter(String input, String delimiter) {
+        int dIndex = input.indexOf(delimiter);
+        if (dIndex == -1) {
+            return "";
+        }
+        int startIndex = dIndex + delimiter.length();
+        int endIndex = input.length();
+
+        // Find the next delimiter
+        String[] allDelimiters = {"/from", "/to", "/by"};
+        for (String d : allDelimiters) {
+            if (d.equals(delimiter)) {
+                continue;
+            }
+            int nextDIndex = input.indexOf(d);
+            if (nextDIndex != -1 && nextDIndex > dIndex && nextDIndex < endIndex) {
+                endIndex = nextDIndex;
+            }
+        }
+        return input.substring(startIndex, endIndex).trim();
     }
 
     /**
@@ -59,83 +96,77 @@ public class Parser {
      * @throws YoyoException If the user input is not in the right format.
      */
     private void checkInput(String input, Tasks tasks) throws YoyoException {
-        String task = input.split(" ")[0];
-        int firstSpaceIndex = input.indexOf(' ');
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
 
-        if (firstSpaceIndex != -1) {
-            input = input.substring(firstSpaceIndex + 1);
-        } else {
-            if (!task.equals("bye") && !task.equals("list")) {
-                throw new YoyoException("Missing description");
-            }
-        }
-
-        String[] inputs = input.split(" ");
-
-        if (inputs.length == 1 && inputs[0].isEmpty()) {
-            inputs = new String[0];
-        }
-
-        if (!Parser.OPERATIONS.contains(task)) {
+        if (!Parser.OPERATIONS.contains(command)) {
             throw new YoyoException("Sorry, I do not recognise this.");
-        } else if (task.equals("todo") && inputs.length == 0) {
-            throw new YoyoException("Sorry, the description of a todo cannot be empty");
-        } else if (task.equals("event")) {
-            String[] s = input.split(" /from | /to ");
-            if (inputs.length == 1) {
-                throw new YoyoException("Sorry, the description and duration of an event cannot be empty");
-            } else if (s.length != 3 || s[0].isEmpty()) {
-                throw new YoyoException("Sorry, the description and duration of an event cannot be empty");
+        }
+
+        if (command.equals("bye") || command.equals("list")) {
+            return;
+        }
+
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new YoyoException("Missing description");
+        }
+
+        String remaining = parts[1];
+
+        if (command.equals("todo")) {
+            if (remaining.trim().isEmpty()) {
+                throw new YoyoException("Sorry, the description of a todo cannot be empty");
+            }
+        } else if (command.equals("event")) {
+            String description = getPart(input, "event", "/from", "/to");
+            String from = getPartAfter(input, "/from");
+            String to = getPartAfter(input, "/to");
+
+            if (description.isEmpty()) {
+                throw new YoyoException("Sorry, the description of an event cannot be empty");
+            }
+            if (from.isEmpty() || to.isEmpty()) {
+                throw new YoyoException("Sorry, the duration of an event cannot be empty (need /from and /to)");
             }
             try {
-                LocalDate start = LocalDate.parse(s[1]);
-                LocalDate end = LocalDate.parse(s[2]);
+                LocalDate.parse(from);
+                LocalDate.parse(to);
             } catch (DateTimeParseException e) {
                 throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
             }
-        } else if (task.equals("deadline")) {
-            String[] s = input.split(" /by ");
-            if (inputs.length == 1) {
-                throw new YoyoException("Sorry, the description and date of a deadline cannot be empty");
-            } else {
-                if (s.length != 2 || s[0].isEmpty()) {
-                    throw new YoyoException("Sorry, the description and date of the deadline cannot be empty");
-                }
+        } else if (command.equals("deadline")) {
+            String description = getPart(input, "deadline", "/by");
+            String by = getPartAfter(input, "/by");
+
+            if (description.isEmpty()) {
+                throw new YoyoException("Sorry, the description of a deadline cannot be empty");
+            }
+            if (by.isEmpty()) {
+                throw new YoyoException("Sorry, the date of a deadline cannot be empty (need /by)");
             }
             try {
-                LocalDate deadline = LocalDate.parse(s[1]);
+                LocalDate.parse(by);
             } catch (DateTimeParseException e) {
                 throw new YoyoException("Sorry, you have not input a valid date. Please follow yyyy-mm-dd");
             }
-        } else if (task.equals("mark")) {
-            if (inputs.length != 1 || !isNumeric(inputs[0])) {
-                throw new YoyoException("Sorry, you need to specify which task is to be marked");
-            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
+        } else if (command.equals("mark") || command.equals("unmark") || command.equals("delete")) {
+            String indexStr = parts[1].trim();
+            if (!isNumeric(indexStr)) {
+                throw new YoyoException("Sorry, you need to specify which task is to be " + command + "ed");
+            }
+            int index = Integer.parseInt(indexStr);
+            if (!tasks.checkExists(index)) {
                 throw new YoyoException("Sorry, the task does not exist");
             }
-        } else if (task.equals("unmark")) {
-            if (inputs.length != 1 || !isNumeric(inputs[0])) {
-                throw new YoyoException("Sorry, you need to specify which task is to be unmarked");
-            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
-                throw new YoyoException("Sorry, the task does not exist");
-            }
-        } else if (task.equals("delete")) {
-            if (inputs.length != 1 || !isNumeric(inputs[0])) {
-                throw new YoyoException("Sorry, you need to specify which task is to be deleted");
-            } else if (!tasks.checkExists(Integer.parseInt(inputs[0]))) {
-                throw new YoyoException("Sorry, the task does not exist");
-            }
-        } else if (task.equals("check")) {
-            if (inputs.length != 1) {
-                throw new YoyoException("Sorry, you need to specify which date is to be check");
-            }
+        } else if (command.equals("check")) {
+            String dateStr = parts[1].trim();
             try {
-                LocalDate checkDate = LocalDate.parse(inputs[0]);
+                LocalDate.parse(dateStr);
             } catch (DateTimeParseException e) {
                 throw new YoyoException("Sorry, you have not input a valid date.  Please follow yyyy-mm-dd");
             }
-        } else if (task.equals("find")) {
-            if (inputs.length == 0) {
+        } else if (command.equals("find")) {
+            if (parts[1].trim().isEmpty()) {
                 throw new YoyoException("Sorry, you need to specify what you want to find");
             }
         }

@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Chatbot yoyo;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/img.png"));
-    private Image yoyoImage = new Image(this.getClass().getResourceAsStream("/images/img_1.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/img1.jpg"));
+    private Image yoyoImage = new Image(this.getClass().getResourceAsStream("/images/img2.jpg"));
 
     /**
      * Initializes the controller.
