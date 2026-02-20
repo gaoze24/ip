@@ -165,6 +165,9 @@ public class Tasks {
                 }
             }
         }
+        if (sb.length() == 0) {
+            return "There is no active task";
+        }
         return sb.toString();
     }
 

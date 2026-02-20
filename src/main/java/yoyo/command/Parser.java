@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class Parser {
     private static final Set<String> OPERATIONS =
-            Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check");
+            Set.of("todo", "event", "deadline", "bye", "mark", "unmark", "list", "delete", "check", "find");
 
     /**
      * Parsing the user input into a machine-friendly format.
@@ -185,7 +185,7 @@ public class Parser {
     private void validateIndexBasedCommand(String command, String indexStr, Tasks tasks) throws YoyoException {
         indexStr = indexStr.trim();
         if (!isNumeric(indexStr)) {
-            throw new YoyoException("Sorry, you need to specify which task is to be " + command + "ed");
+            throw new YoyoException("Sorry, you need to specify which task is to be " + command + "d");
         }
         int index = Integer.parseInt(indexStr);
         if (!tasks.checkExists(index)) {

@@ -36,11 +36,11 @@ public class TasksTest {
 
     @Test
     public void testStoreTaskFromArray() {
-        tasks.storeTask(new String[]{"false", "todo desc", "todo"}); // ToDos list.length == 3
+        tasks.storeTask(new String[]{"todo", "false", "todo desc"});
         assertTrue(tasks.showTask(1).contains("todo desc"));
-        tasks.storeTask(new String[]{"true", "deadline desc", "2024-12-31"}); // Deadlines list.length == 4
+        tasks.storeTask(new String[]{"deadline", "true", "deadline desc", "2024-12-31"});
         assertTrue(tasks.showTask(2).contains("deadline desc"));
-        tasks.storeTask(new String[]{"false", "event desc", "2024-12-31", "2025-01-01"}); // Events list.length == 5
+        tasks.storeTask(new String[]{"event", "false", "event desc", "2024-12-31", "2025-01-01"});
         assertTrue(tasks.showTask(3).contains("event desc"));
     }
 
@@ -86,13 +86,13 @@ public class TasksTest {
         assertTrue(result.contains("test1"));
         assertTrue(result.contains("test2"));
         result = tasks.checkDate(LocalDate.parse("2024-12-29"));
-        assertEquals("", result);
+        assertEquals("There is no active task", result);
     }
 
     @Test
     public void testToStringEmpty() {
         tasks = new Tasks();
-        assertEquals("there is no active tasks", tasks.toString());
+        assertEquals("There is no active task", tasks.toString());
     }
 
     @Test

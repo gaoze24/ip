@@ -48,7 +48,7 @@ public class ChatbotTest {
         Chatbot chatbot = new Chatbot();
         chatbot.chat();
         String output = outContent.toString();
-        assertTrue(output.contains("there is no active tasks"));
+        assertTrue(output.contains("There is no active task"));
     }
 
     @Test
